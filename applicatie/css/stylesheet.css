@@ -1,0 +1,227 @@
+:root {
+    --darkgreen: #034754;
+    --accentgreen: #97f9be;
+    --backgroundgreen: #dafde8;
+    --accentpurple: #bfa2fd;
+    --tablegreen: #297280;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    /*grid-template-rows: auto auto 1fr;*/
+    justify-content: space-between;
+    background-color: var(--backgroundgreen);
+    font-family: 'Wix Madefor Display', sans-serif;
+    overflow: scroll;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 25% auto 25%;
+    grid-gap: 10px;
+    width: 100vw;
+    background-color: var(--darkgreen);
+    color: var(--accentgreen);
+}
+
+main {
+    display: flex;
+
+    flex-direction: row;
+    color: var(--darkgreen);
+}
+
+.page-content {
+    display: flex;
+    flex-flow: row wrap;
+    width: 95vw;
+    justify-content: center;
+}
+#page-content-flight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    grid-row: 3;
+    width: 100vw;
+    text-align: center;
+    padding: 5px;
+    background-color: var(--darkgreen);
+    color: var(--accentgreen);
+}
+
+#luggage-page {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+h1{
+    display: flex;
+    font-size: 60px;
+    grid-column: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    margin: 0.5em;
+}
+header nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 25px;
+}
+
+#nav{
+    display: flex;
+    flex-direction: column;
+}
+
+a{
+    color: var(--accentgreen);
+    padding: 15px;
+}
+
+.nav-icon:hover{
+    border: 5px solid;
+}
+
+
+
+form, fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 3px;
+    margin: 10px 0;
+    padding: 5px;
+    border: var(--darkgreen) 2px dotted;
+
+}
+
+label{
+    grid-column: 1/2;
+}
+
+form input {
+    grid-column: 2/3;
+}
+
+#gender-choices {
+    display: flex;
+    flex-direction: row;
+    border: none;
+}
+
+
+
+.button{
+    margin-top: 10px;
+    padding: 3px 0;
+    background-color: var(--accentpurple);
+    font-weight: bold;
+}
+
+.information-field {
+    min-width: 30%;
+    max-width: 50%;
+    padding: 10px;
+    margin: 10px;
+    border: var(--darkgreen) 1px solid;
+}
+
+#luggage-page .information-field {
+    width: 40%;
+}
+
+.actual-information{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: var(--darkgreen) 1px dashed;
+}
+
+table{
+
+    table-layout: fixed;
+    margin: 25px;
+    width: 80%;
+    height: 50%;
+    border-collapse: separate;
+}
+
+thead{
+    background-color: var(--tablegreen);
+    color: var(--accentgreen);
+    font-size: x-large;
+}
+
+tbody tr:nth-child(even){
+    background-color: var(--tablegreen);
+    color: var(--accentgreen);
+}
+tbody tr:nth-child(odd){
+    color: var(--darkgreen);
+}
+
+table, th, td {
+    border: #034754 1px solid;
+    text-align: left;
+    font-size: large;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .page-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    header img{
+        display: none;
+    }
+    h1{
+        font-size: 40px;
+        margin: 5px;
+    }
+    header p{
+        margin: 5px;
+    }
+
+
+    .prio-3 {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    form, fieldset {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1{
+        font-size: 40px;
+    }
+}
+
+@media screen {
+
+}
+
+
+
+
