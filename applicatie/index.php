@@ -1,3 +1,8 @@
+<?php
+    $pageTitle = "Welkom bij Gelre Airport";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +19,7 @@
 
 <body>
 <header>
-    <h1>Welkom bij Gelre Airport</h1>
-    <nav>
-        <div class="nav-icon">
-            <a href="leaving-flights.php">
-                <img src="./images/departure-icon.png" alt="vertrek vluchten">
-                <p>Vertrek vluchten</p>
-            </a>
-        </div>
-    </nav>
+    <?php include "./header.php" ?>
 </header>
 
 <main>
@@ -51,8 +48,7 @@
 </section>
 
 <footer>
-    <p>Ontworpen door: Ewoud Mol<br>
-        <a href="mailto: e.mol2@student.han.nl">Stuur e-mail</a></p>
+    <?php include "./footer.php" ?>
 </footer>
 </body>
 </html>

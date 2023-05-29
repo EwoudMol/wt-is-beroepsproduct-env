@@ -1,3 +1,8 @@
+<?php
+    $pageTitle = "Welkom passagiersnaam";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,77 +19,30 @@
 </head>
 <body>
 <header>
-    <h1>Welkom passagiersnaam</h1>
-    <nav>
-        <div class="nav-icon">
-            <a href="index.php">
-                <img src="./images/sign-out-icon.png" alt="Uitloggen">
-                <p>Uitloggen</p>
-            </a>
-        </div>
-    </nav>
+    <?php include "./header.php" ?>
 </header>
 
 <main>
-    <div id="side-menu">
-        <label class="hamburger-menu">
-            <input type="checkbox" />
-        </label>
-        <aside class="sidebar">
-            <nav id="nav-menu-staff">
-                <div class="nav-icon">
-                    <a href="startpage-passenger.php">
-                        <img src="./images/home-icon.png" alt="Home">
-                        <p>Startpagina</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="leaving-flights.php">
-                        <img src="./images/departure-icon.png" alt="vertrek vluchten">
-                        <p>Vertrek<br>vluchten</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="luggage.php">
-                        <img src="./images/luggage-icon.png" alt="Bagage">
-                        <p>Bagage</p>
-                    </a>
-                </div>
-            </nav>
-        </aside>
-    </div>
-
     <section class="page-content">
+        <?php include "./hamburger-menu.php" ?>
+
+
         <section class="information-field">
             <h2>Persoonsgegevens</h2>
-            <section class="actual-information">
-                <p>naam passagier: </p>
-                <p>Geslacht:</p>
-                <p>Passagiersnummer:</p>
-                <p>Hoeveelheid bagage:</p>
-            </section>
+            <?php include "./info-passenger.php" ?>
             <button class="button" type="button" onclick="alert('Link koffer bijboeken')">Extra bagage boeken</button>
         </section>
 
         <section class="information-field">
             <h2>Uw vluchtgegevens</h2>
-            <section class="actual-information">
-                <p>Vluchtnummer: </p>
-                <p>Bestemming:</p>
-                <p>Gate:</p>
-                <p>Vertrektijd:</p>
-                <p>Maatschappij:</p>
-            </section>
+            <?php include "./info-one-flight.php" ?>
             <button class="button" type="button" onclick="alert('Checkt passagier in')">Inchecken</button>
         </section>
     </section>
 </main>
 
-
-
 <footer>
-    <p>Ontworpen door: Ewoud Mol<br>
-        <a href="mailto: e.mol2@student.han.nl">Stuur e-mail</a></p>
+    <?php include "./footer.php" ?>
 </footer>
 
 </body>

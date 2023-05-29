@@ -1,3 +1,16 @@
+<?php
+    $pageTitle = "Bagage bijboeken";
+    $namePassenger = "Piet";
+    $sexePassenger = "M";
+    $numberPassenger = 123456;
+    $amountLuggage = 2;
+    $bookedFlight = 12;
+    $destination = "Madrid";
+    $weightAvailableLuggageLeft = 0;
+    $maxAmountLuggageAirline = 1;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,62 +27,12 @@
 </head>
 <body>
 <header>
-    <h1>Koffers bijboeken</h1>
-    <nav>
-        <div class="nav-icon">
-            <a href="index.php">
-                <img src="./images/sign-out-icon.png" alt="Uitloggen">
-                <p>Uitloggen</p>
-            </a>
-        </div>
-    </nav>
+    <?php include "./header.php" ?>
 </header>
 
 <main>
     <section class="page-content">
-        <label class="hamburger-menu">
-            <input type="checkbox" />
-        </label>
-        <aside class="sidebar">
-            <nav id="nav-menu-staff">
-                <div class="nav-icon">
-                    <a href="startpage-staff.php">
-                        <img src="./images/home-icon.png" alt="Home">
-                        <p>Startpagina medewerker</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="startpage-passenger.php">
-                        <img src="./images/home-icon.png" alt="Home">
-                        <p>Startpagina passagier</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="leaving-flights.php">
-                        <img src="./images/departure-icon.png" alt="vertrek vluchten">
-                        <p>Vertrek vluchten</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="book-ticket.php">
-                        <img src="./images/tickets-icon.png" alt="ticket boeken">
-                        <p>Nieuwe<br>passagier</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="new-flight.php">
-                        <img src="./images/flight-icon.png" alt="Nieuwe vlucht">
-                        <p>Nieuwe<br>vlucht</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="luggage.php">
-                        <img src="./images/luggage-icon.png" alt="Bagage">
-                        <p>Bagage</p>
-                    </a>
-                </div>
-            </nav>
-        </aside>
+        <?php include "./hamburger-menu.php" ?>
 
         <!--            TODO: volledige pagina nog opmaken-->
         <section class="page-content" id="luggage-page">
@@ -85,12 +48,7 @@
 
             <section class="information-field">
                 <h2>Persoonsgegevens</h2>
-                <section class="actual-information">
-                    <p>naam passagier: </p>
-                    <p>Geslacht:</p>
-                    <p>Passagiersnummer:</p>
-                    <p>Stuks bagage:</p>
-                </section>
+                <?php include "./info-passenger.php" ?>
             </section>
 
             <section class="information-field">
@@ -117,9 +75,7 @@
 
 
 <footer>
-    <p>Ontworpen door: Ewoud Mol<br>
-        <a href="mailto: e.mol2@student.han.nl">Stuur e-mail</a></p>
+ <?php include "./footer.php" ?>
 </footer>
-
 </body>
 </html>

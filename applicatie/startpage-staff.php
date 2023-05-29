@@ -1,3 +1,7 @@
+<?php
+    $pageTitle = "Passagiersdetails";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,61 +19,15 @@
 
 <body>
 <header>
-    <h1>Passagiersdetails</h1>
-    <nav>
-        <div class="nav-icon">
-            <a href="index.php">
-                <img src="./images/sign-out-icon.png" alt="Uitloggen">
-                <p>Uitloggen</p>
-            </a>
-        </div>
-    </nav>
+    <?php include "./header.php" ?>
 </header>
 
 <main>
-    <div id="side-menu">
-        <label class="hamburger-menu">
-            <input type="checkbox" />
-        </label>
-        <aside class="sidebar">
-            <nav id="nav-menu-staff">
-                <div class="nav-icon">
-                    <a href="startpage-staff.php">
-                        <img src="./images/home-icon.png" alt="Home">
-                        <p>Startpagina</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="leaving-flights.php">
-                        <img src="./images/departure-icon.png" alt="vertrek vluchten">
-                        <p>Vertrek<br>vluchten</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="book-ticket.php">
-                        <img src="./images/tickets-icon.png" alt="ticket boeken">
-                        <p>Nieuwe<br>passagier</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="new-flight.php">
-                        <img src="./images/flight-icon.png" alt="Nieuwe vlucht">
-                        <p>Nieuwe<br>vlucht</p>
-                    </a>
-                </div>
-                <div class="nav-icon">
-                    <a href="luggage.php">
-                        <img src="./images/luggage-icon.png" alt="Bagage">
-                        <p>Bagage</p>
-                    </a>
-                </div>
-            </nav>
-        </aside>
-    </div>
-
     <section class="page-content">
+        <?php include "./hamburger-menu.php" ?>
+
         <section class="information-field">
-            <h3>Persoonsgegevens</h3>
+            <h2>Persoonsgegevens</h2>
             <form>
                 <label for="passengernumber"> Passagiersnummer:</label>
                 <input type="number" id="passengernumber" name="passengernumber">
@@ -77,44 +35,25 @@
                 <input type="text" id="passenger-name" name="passengername">
                 <input class="button" type="submit" value="Zoeken">
             </form>
-
-
-            <section class="actual-information">
-                <p>Passagiersnummer:</p>
-                <p>Naam passagier: </p>
-                <p>Geslacht:</p>
-                <p>Hoeveelheid bagage:</p>
-            </section>
+            <?php include "./info-passenger.php" ?>
         </section>
 
         <section class="information-field">
-            <h3>Vluchtdata</h3>
+            <h2>Vluchtdata</h2>
             <form>
                 <label for="flightnumber">Vluchtnummer</label>
                 <input type="number" id="flightnumber" name="flightnumber">
                 <input class="button" type="submit" value="Zoeken">
             </form>
-
-            <section class="actual-information">
-                <p>Vluchtnummer: </p>
-                <p>Bestemming:</p>
-                <p>Gate:</p>
-                <p>Vertrektijd:</p>
-                <p>Maatschappij:</p>
-            </section>
-
+            <?php include "./info-one-flight.php" ?>
             <button class="button" type="button" onclick="alert('Link koffer bijboeken')">Extra bagage boeken</button>
         </section>
     </section>
 </main>
 
-
-
 <footer>
-    <p>Ontworpen door: Ewoud Mol<br>
-        <a href="mailto: e.mol2@student.han.nl">Stuur e-mail</a></p>
+    <?php include "./footer.php" ?>
 </footer>
-
 
 </body>
 </html>
