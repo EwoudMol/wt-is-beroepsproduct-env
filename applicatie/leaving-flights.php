@@ -11,7 +11,7 @@ require_once './basic-elements/pager.php';
     $pageTitle = "Vertrek Vluchten";
 
     $segments = explode("?", $_SERVER["REQUEST_URI"]);
-    $pagesize = isset($_GET["p"]) ? $_GET["p"] : 10;
+    $pagesize = isset($_GET["p"]) ? $_GET["p"] : 20;
     $start = isset($_GET["s"]) ? $_GET["s"] : 0;
 
 

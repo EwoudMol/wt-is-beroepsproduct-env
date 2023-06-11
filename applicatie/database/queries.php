@@ -28,7 +28,6 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
     $pagesize = intval($pagesize);
     $skip = intval($skip);
 
-    var_dump($pagesize, $skip);
 
     $sql = "SELECT CONVERT(smalldatetime, vertrektijd) as vertrektijd, vluchtnummer, gatecode, luchthaven.naam, maatschappij.naam
             FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
@@ -40,8 +39,6 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
 
     $query = $verbinding ->prepare($sql);
 
-    var_dump($query->queryString);
-
     $query->bindParam(':displayFlightsFrom', $displayFlightsFrom, PDO::PARAM_STR);
     $query->bindParam(':skip', $skip, PDO::PARAM_INT);
     $query->bindParam(':pagesize', $pagesize, PDO::PARAM_INT);
@@ -52,6 +49,5 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
 }
 
 function getAmountTableRows($table){
-    var_dump("TABEL" .$table);
     return executeQuery("SELECT COUNT(1) FROM $table");
 }
