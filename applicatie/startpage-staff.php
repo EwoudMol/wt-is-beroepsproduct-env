@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+var_dump($_SESSION);
+
 require './forms/search-passenger-by-number.php';
 require './forms/search-flight-by-number.php';
 require './content-blocks/info-single-flight.php';
@@ -22,6 +25,9 @@ $pageContent .= searchFlightByNumberForm();
 $pageContent .= generateSingleFlightInfomation();
 $pageContent .='<button class="button" type="button" onclick="alert("Checkt passagier in")">Inchecken</button>';
 $pageContent .= '</section>';
+
+
+
 
 include './basic-elements/base-page.php';
 
