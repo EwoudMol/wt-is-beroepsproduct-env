@@ -2,8 +2,8 @@
 
 session_start();
 
-require './forms/search-passenger-by-number.php';
-require './forms/search-flight-by-number.php';
+require './forms/search-passenger-form.php';
+require './forms/search-flight-form.php';
 require './content-blocks/info-single-flight.php';
 
     $homePage = false;

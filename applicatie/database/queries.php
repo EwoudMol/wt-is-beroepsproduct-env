@@ -76,5 +76,45 @@ function getFlightInformation($flightNumber){
     $query = $verbinding ->prepare($sql);
     $query -> execute([':flightNumber' => $flightNumber]);
     return  $query -> fetch(PDO::FETCH_ASSOC);
+}
 
+function getRemainingSpaceFlight($flightNumber){
+    global $verbinding;
+    $sql = "SELECT Vlucht.vluchtnummer, luchthaven.naam as bestemming,  max_aantal as max_passagiers,  bookedpassengers.aantal as booked_passengers, max_aantal - bookedpassengers.aantal as remaining_passengers, max_totaalgewicht, SUM(BagageObject.gewicht) as gewicht_bagage, max_totaalgewicht - SUM(BagageObject.gewicht) as remaining_weight
+            FROM [GelreAirport].[dbo].[Vlucht] as Vlucht
+            JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON vlucht.bestemming=luchthavencode
+            JOIN [GelreAirport].[dbo].[Passagier] ON Vlucht.vluchtnummer = Passagier.vluchtnummer
+            JOIN [GelreAirport].[dbo].[BagageObject] ON Passagier.passagiernummer = BagageObject.passagiernummer
+            JOIN (	SELECT vluchtnummer, count(passagiernummer) as aantal
+                    FROM [GelreAirport].[dbo].[Passagier]
+                    group by vluchtnummer) AS bookedpassengers
+                    ON Vlucht.vluchtnummer = bookedpassengers.vluchtnummer
+            WHERE Vlucht.vluchtnummer = :flightNumber
+            GROUP BY Vlucht.vluchtnummer, max_aantal,max_totaalgewicht, bookedpassengers.aantal,luchthaven.naam";
+
+    $query = $verbinding ->prepare($sql);
+    $query -> execute([':flightNumber' => $flightNumber]);
+    return  $query -> fetch(PDO::FETCH_ASSOC);
+}
+//TODO deze afmaken. Komt vanuit het nieuwe ticket.
+function registerNewFlight($newFlightDetails){
+    global $verbinding;
+    $sql = "INSERT INTO [GelreAirport].[dbo].[Vlucht] (vluchtnummer, bestemming, gatecode, max_aantal, max_gewicht_pp, max_totaalgewicht, vertrektijd, maatschappijcode) 
+            VALUES ((SELECT MAX(vluchtnummer) FROM [GelreAirport].[dbo].[Vlucht])+1, :destination, :gatecode, :max_passenger,:max_weight_pp,:max_totalweigth, :depart_time, :airline);";
+
+
+    $query = $verbinding ->prepare($sql);
+    $query->execute([
+        ':destination' => $newFlightDetails["destination"],
+        ':gatecode' => $newFlightDetails["gatecode"],
+        ':max_passenger' => $newFlightDetails["max_passenger"],
+        ':max_weight_pp' => $newFlightDetails["max_weight_pp"],
+        ':max_totalweigth' => $newFlightDetails["max_totalweigth"],
+        ':depart_time' => $newFlightDetails["depart_time"],
+        ':airline' => $newFlightDetails["airline"]
+    ]);
+    $newFlightnumber = $verbinding->query("SELECT TOP (1) [vluchtnummer]
+                                                  FROM [GelreAirport].[dbo].[Vlucht]
+                                                  ORDER BY vluchtnummer desc")->fetchColumn();
+    return $newFlightnumber;
 }

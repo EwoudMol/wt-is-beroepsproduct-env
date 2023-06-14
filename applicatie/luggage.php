@@ -1,7 +1,7 @@
 <?php
 
-require './forms/search-passenger-by-number.php';
-require './forms/extra-luggage.php';
+require './forms/search-passenger-form.php';
+require './forms/extra-luggage-form.php';
 require './content-blocks/Flight-luggage-Info.php';
 
 

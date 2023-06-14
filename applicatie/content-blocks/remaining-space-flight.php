@@ -1,10 +1,12 @@
 <?php
 
-function generateRemainingSpaceInfo(){
+function generateRemainingSpaceInfo($flightDetails){
     return <<<REMAININGSPACE
             <div id="place-left-flight">
-                <p>Vrije zitplaatsen vliegtuig: <?php echo $seatsAvailable ?></p>
-                <p>Hoeveelheid bagage die nog meegenomen kan worden: <?php echo $weightAvailableLuggage ?></p>
+                <p>Vluchtnummer: {$flightDetails['vluchtnummer']}</p>
+                <p>Bestemming: {$flightDetails['bestemming']}</p>
+                <p>Vrije zitplaatsen vliegtuig: {$flightDetails['remaining_passengers']}</p>
+                <p>Hoeveelheid bagage die nog meegenomen kan worden: {$flightDetails['remaining_weight']} kg.</p>
             </div>
 REMAININGSPACE;
 

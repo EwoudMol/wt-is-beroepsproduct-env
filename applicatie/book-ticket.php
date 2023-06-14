@@ -1,18 +1,17 @@
 <?php
 
+session_start();
+
     $homePage = false;
     $pageTitle = "Ticket boeken";
-    $seatsAvailable= 0;
-    $weightAvailableLuggage = 0;
 
-
-    require './forms/search-flight-by-number.php';
-    require './forms/ticket-passenger-info.php';
+    require './forms/search-flight-form.php';
+    require './forms/ticket-passenger-form.php';
     require './content-blocks/remaining-space-flight.php';
 
 
     $pageContent = searchFlightByNumberForm();
-    $pageContent .= generateRemainingSpaceInfo();
+    $pageContent .= generateRemainingSpaceInfo($_SESSION["flightDetails"]);
     $pageContent .= '</section>';
     $pageContent .= generateTicketForm();
 

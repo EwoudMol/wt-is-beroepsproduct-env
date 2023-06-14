@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 //TODO de links van de verschillende pagina's zijn niet leesbaar.
 
 require './content-blocks/leaving-flights-table.php';

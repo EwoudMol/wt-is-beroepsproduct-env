@@ -5,7 +5,7 @@ function generateTicketForm()
     return <<<TICKETFORM
 
 <section class="information-field">
-            <h3>Ticketgegevens</h3>
+            <h2>Ticket boeken</h2>
             <form>
                 <label for="initials">Naam</label>
                 <input type="text" id="initials" name="initials" required><br>

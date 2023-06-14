@@ -2,6 +2,7 @@
 
 function generateSingleFlightInfomation($flightDetails) {
 
+
     return <<<SINGLEFLIGHTINFORMATION
         <section class="actual-information">
             <p>Vluchtnummer: {$flightDetails['vluchtnummer']}</p>

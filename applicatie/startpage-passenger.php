@@ -6,7 +6,7 @@
     require './database/queries.php';
 
 //TODO vragen aan John of het logischer is om 1 of twee queries te doen in dit geval?
-//Nu doe ik er twee.
+
 
     $passengerDetails = getPassengerDetails($_SESSION['number']);
     $flightDetails = getFlightInformation($passengerDetails['vluchtnummer']);

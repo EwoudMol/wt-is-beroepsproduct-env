@@ -1,5 +1,5 @@
 <?php
-
+//TODO dit menu werkt nog niet goed.
 $headerMenuItems = [
     [
         'onHomePage' => true,
@@ -36,7 +36,8 @@ function createHeaderMenu() {
             $headerMenu .= '
             <a href="' . $headerMenuItem["link"] . '">
                 <img src="' . $headerMenuItem["img"]["src"] . '" alt="' . $headerMenuItem["img"]["alt"] . '">
-                <p>' . $headerMenuItem["text"] . '</p>';
+                <p>' . $headerMenuItem["text"] . '</p>
+            </a>';
 
         }
     }

@@ -5,9 +5,10 @@ session_start();
 
 require '../database/queries.php';
 
-//TODO vragen aan John of het logischer is om 1 of twee queries te doen in dit geval?
+unset($_SESSION['passengerDetails']);
+unset($_SESSION['flightDetails']);
 
-    $_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
+$_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
 
     if (!empty($_SESSION["passengerDetails"])) {
         $vluchtnummer = $_SESSION["passengerDetails"]["vluchtnummer"];
