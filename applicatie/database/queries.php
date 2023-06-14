@@ -1,6 +1,6 @@
 <?php
 
-require_once("./database/db_connectie.php");
+require_once 'db_connectie.php';
 
 
 function executeQuery($query) {
@@ -11,8 +11,8 @@ function executeQuery($query) {
 function getPassengerLoginDetails($passengerNumber) {
     global $verbinding;
     $sql = "SELECT passagiernummer, naam
-                                FROM [GelreAirport].[dbo].[Passagier]
-                                WHERE passagiernummer = :passengerNumber";
+            FROM [GelreAirport].[dbo].[Passagier]
+            WHERE passagiernummer = :passengerNumber";
 
     $query = $verbinding ->prepare($sql);
     $query-> execute([':passengerNumber' => intval($passengerNumber)]) ;
@@ -27,7 +27,6 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
 
     $pagesize = intval($pagesize);
     $skip = intval($skip);
-
 
     $sql = "SELECT CONVERT(smalldatetime, vertrektijd) as vertrektijd, vluchtnummer, gatecode, luchthaven.naam, maatschappij.naam
             FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
@@ -44,10 +43,38 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
     $query->bindParam(':pagesize', $pagesize, PDO::PARAM_INT);
     $query->execute();
 
-
     return  $query -> fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getAmountTableRows($table){
     return executeQuery("SELECT COUNT(1) FROM $table");
+}
+
+function getPassengerDetails($passengerNumber){
+    global $verbinding;
+   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(*) as aantal
+            FROM [GelreAirport].[dbo].[Passagier] AS passagier
+            JOIN [GelreAirport].[dbo].[Vlucht] AS vlucht ON passagier.vluchtnummer = vlucht.vluchtnummer
+            JOIN [GelreAirport].[dbo].[BagageObject] as bagage ON bagage.passagiernummer = passagier.passagiernummer
+            WHERE passagier.passagiernummer = :passengerNumber
+            GROUP BY passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer";
+
+    $query = $verbinding ->prepare($sql);
+    $query -> execute([':passengerNumber' => $passengerNumber]);
+    return  $query -> fetch(PDO::FETCH_ASSOC);
+
+}
+
+function getFlightInformation($flightNumber){
+    global $verbinding;
+    $sql = "SELECT  vluchtnummer, CONVERT(smalldatetime, vertrektijd) as vertrektijd, gatecode, luchthaven.naam as bestemming, maatschappij.naam as maatschappij
+            FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
+            JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON bestemming=luchthavencode
+            JOIN [GelreAirport].[dbo].[Maatschappij] as maatschappij ON vlucht.maatschappijcode = maatschappij.maatschappijcode
+            WHERE vlucht.vluchtnummer = :flightNumber";
+
+    $query = $verbinding ->prepare($sql);
+    $query -> execute([':flightNumber' => $flightNumber]);
+    return  $query -> fetch(PDO::FETCH_ASSOC);
+
 }

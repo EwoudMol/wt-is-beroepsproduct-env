@@ -1,5 +1,19 @@
 <?php
 
+    require_once 'hamburger-menu.php';
+    require_once 'header.php';
+
+    $headerMenu = '';
+    $sideMenu = '';
+
+
+    if(!isset ($_SESSION["role"])) {
+        $headerMenu = createHeaderMenu();
+    } else {
+        $sideMenu = createSideMenu($_SESSION["role"]);
+    }
+
+
 ?>
 
 
@@ -21,13 +35,14 @@
 <body>
 
     <header>
-        <?php include "header.php" ?>
+        <h1><?php  echo $pageTitle ?></h1>
+        <?= $headerMenu ?>
     </header>
 
     <main>
         <section class="page-content">
-            <?php include "hamburger-menu.php" ?>
-            <?php echo $pageContent ?>
+            <?= $sideMenu ?>
+            <?= $pageContent ?>
         </section>
     </main>
 

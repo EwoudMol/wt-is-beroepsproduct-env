@@ -1,6 +1,8 @@
 <?php
 
 
+
+//TODO het naam veld nog omzetten naar password. Wel in de documentatie opnemen dat het password niet gehashed in de database staat.
 function createLoginForm() {
     return <<<LOGINFORM
                 <section class="page-content">
@@ -16,7 +18,7 @@ function createLoginForm() {
                             <input type="text" id="number" name="number" pattern="[0-9]{5}" placeholder="123456"><br>
                             <label for="name"> Naam:</label>
                             <input type="text" id="name" name="name" pattern="[A-Za-z]{*}"><br>
-                            <input class="button" type="submit" value="Inloggen" name="inloggen">
+                            <input class="button" type="submit"  name="inloggen">
                         </form>
                     </section>
                 </section>

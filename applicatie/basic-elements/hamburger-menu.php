@@ -1,55 +1,107 @@
 <?php
 
-    $sideMenu = <<<SIDEMENU
+//TODO door de opmaak als lijst staan er nu puntjes voor de navigatie icons.
+
+$sideMenuItems = [
+    [
+        'role' => 'staff',
+        'link' => '../startpage-staff.php',
+        'img' => [
+            'src' => '../images/home-icon.png',
+            'alt' => 'Home'
+        ],
+        'text' => 'Startpagina medewerker'
+    ],
+    [
+        'role' => 'passenger',
+        'link' => '../startpage-passenger.php',
+        'img' => [
+            'src' => '../images/home-icon.png',
+            'alt' => 'Home'
+        ],
+        'text' => 'Startpagina passagier'
+    ],
+    [
+        'role' => 'all',
+        'link' => '../leaving-flights.php',
+        'img' => [
+            'src' => '../images/departure-icon.png',
+            'alt' => 'vertrek vluchten'
+        ],
+        'text' => 'Vertrek vluchten'
+    ],
+    [
+        'role' => 'staff',
+        'link' => '../book-ticket.php',
+        'img' => [
+            'src' => '../images/tickets-icon.png',
+            'alt' => 'ticket boeken'
+        ],
+        'text' => 'Nieuwe<br>passagier'
+    ],
+    [
+        'role' => 'staff',
+        'link' => '../new-flight.php',
+        'img' => [
+            'src' => '../images/flight-icon.png',
+            'alt' => 'Nieuwe vlucht'
+        ],
+        'text' => 'Nieuwe<br>vlucht'
+    ],
+    [
+        'role' => 'all',
+        'link' => '../luggage.php',
+        'img' => [
+            'src' => '../images/luggage-icon.png',
+            'alt' => 'Bagage'
+        ],
+        'text' => 'Bagage'
+    ],
+    [
+    'role' => 'all',
+    'link' => '../logout.php',
+    'img' => [
+        'src' => '../images/sign-out-icon.png',
+        'alt' => 'Uitloggen'
+    ],
+    'text' => 'Uitloggen'
+    ]
+];
+
+function createSideMenu($role) {
+    global $sideMenuItems;
+
+    $sideMenu = '
         <div>
             <label class="hamburger-menu">
                 <input type="checkbox" />
             </label>
             <aside class="sidebar">
-                <nav id="nav-menu-staff">
-                    <div class="nav-icon">
-                        <a href="../startpage-staff.php">
-                            <img src="../images/home-icon.png" alt="Home">
-                            <p>Startpagina medewerker</p>
-                        </a>
-                    </div>
-                    <div class="nav-icon">
-                        <a href="../startpage-passenger.php">
-                            <img src="../images/home-icon.png" alt="Home">
-                            <p>Startpagina passagier</p>
-                        </a>
-                    </div>
-                    <div class="nav-icon">
-                        <a href="../leaving-flights.php">
-                            <img src="../images/departure-icon.png" alt="vertrek vluchten">
-                            <p>Vertrek vluchten</p>
-                        </a>
-                    </div>
-                    <div class="nav-icon">
-                        <a href="../book-ticket.php">
-                            <img src="../images/tickets-icon.png" alt="ticket boeken">
-                            <p>Nieuwe<br>passagier</p>
-                        </a>
-                    </div>
-                    <div class="nav-icon">
-                        <a href="../new-flight.php">
-                            <img src="../images/flight-icon.png" alt="Nieuwe vlucht">
-                            <p>Nieuwe<br>vlucht</p>
-                        </a>
-                    </div>
-                    <div class="nav-icon">
-                        <a href="../luggage.php">
-                            <img src="../images/luggage-icon.png" alt="Bagage">
-                            <p>Bagage</p>
-                        </a>
-                    </div>
-                </nav>
-            </aside>
-        </div>
-    SIDEMENU;
-?>
+                <nav id="nav-menu-staff">';
+
+    foreach ($sideMenuItems as $sideMenuItem) {
+        if ($role === $sideMenuItem['role'] || $sideMenuItem['role'] === 'all') {
+            $sideMenu .= '        
+                    <li>
+                        <div class="nav-icon">
+                            <a href="' . $sideMenuItem["link"] . '">
+                                <img src="' . $sideMenuItem["img"]["src"] . '" alt="' . $sideMenuItem["img"]["alt"] . '">
+                                <p>' . $sideMenuItem["text"] . '</p>
+                            </a>
+                        </div>
+                    </li>';
+        }
+    }
+
+    $sideMenu .= '     </nav>
+                </aside>
+            </div>';
 
 
-<?php if(!$homePage)
-    echo $sideMenu;
+    return $sideMenu;
+}
+
+
+
+
 ?>

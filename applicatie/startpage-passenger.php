@@ -1,33 +1,29 @@
 <?php
-
-
+    session_start();
 
     require './content-blocks/info-passenger.php';
     require './content-blocks/info-single-flight.php';
+    require './database/queries.php';
+
+//TODO vragen aan John of het logischer is om 1 of twee queries te doen in dit geval?
+//Nu doe ik er twee.
+
+    $passengerDetails = getPassengerDetails($_SESSION['number']);
+    $flightDetails = getFlightInformation($passengerDetails['vluchtnummer']);
 
     $homePage = false;
-    $pageTitle = "Welkom passagiersnaam";
-    $numberPassenger = 123;
-    $namePassenger = "Ans";
-    $genderPassenger = "V";
-    $amountLuggage = 2;
-    $flightNumber = 123;
-    $destination = "Dubai";
-    $gate = 12;
-    $departureTime = "11:15";
-    $airline = "BA";
-
-
+    $namePassenger = $passengerDetails['naam'];
+    $pageTitle = 'Welkom '.$namePassenger;
 
 
     $pageContent = '<section class= "information-field">';
     $pageContent .= '<h2>Uw persoongegevens</h2>';
-    $pageContent .= generatePassengerInformation();
+    $pageContent .= generatePassengerInformation($passengerDetails);
     $pageContent .='<button class="button" type="button" onclick="alert("Link koffer bijboeken")">Extra bagage boeken</button>';
     $pageContent .= '</section>';
     $pageContent .= '<section class= "information-field">';
     $pageContent .= '<h2>Uw Vluchtgegevens</h2>';
-    $pageContent .= generateSingleFlightInfomation();
+    $pageContent .= generateSingleFlightInfomation($flightDetails);
     $pageContent .='<button class="button" type="button" onclick="alert("Checkt passagier in")">Inchecken</button>';
     $pageContent .= '</section>';
 

@@ -3,14 +3,11 @@
 
     require_once './database/queries.php';
 
-//var_dump($_POST);
-
     $name = htmlspecialchars(strtolower($_POST["name"]));
     $number = htmlspecialchars($_POST["number"]);
 
 
-
-if ($_POST["user"] === "staff" && $name === "Test" && $number === '098765'){
+if ($_POST["user"] === "staff" && $name === "test" && $number === '98765'){
     $_SESSION['role'] = "staff";
     $_SESSION['number'] = $_POST["number"];
     $_SESSION['name'] = $_POST["name"];
@@ -18,11 +15,7 @@ if ($_POST["user"] === "staff" && $name === "Test" && $number === '098765'){
     header('Location: /startpage-staff.php');
 
 } elseif($_POST["user"] === "passenger") {
-   // var_dump($_POST["number"]);
     $result = getPassengerLoginDetails($number);
-   // var_dump("result");
-    var_dump($result);
-    var_dump($result["passagiernummer"]);
 
 
     if($result["passagiernummer"] === $number && strtolower($result["naam"]) === $name ) {

@@ -15,7 +15,7 @@ function generatePager($table, $url, $start, $pagesize) {
     $pagefw = $start + $pagesize;
     $pagefw = $pagefw > $totalrows[""] ? $start : $pagefw;
 
-    $numberOfPages = ceil(intval($totalrows[""]) / intval($pagesize));
+    $numberOfPages = ceil((int)$totalrows[""] / (int)$pagesize);
 
 
     $result = "<a href='$url?p=$pagesize&s=$pageback'>previous</a> &nbsp;";

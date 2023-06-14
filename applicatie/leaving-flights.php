@@ -1,5 +1,7 @@
 <?php
 
+//TODO de links van de verschillende pagina's zijn niet leesbaar.
+
 require './content-blocks/leaving-flights-table.php';
 require_once('./database/queries.php');
 require_once './basic-elements/pager.php';

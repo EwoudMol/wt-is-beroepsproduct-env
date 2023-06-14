@@ -1,14 +1,14 @@
 <?php
 
-function generateSingleFlightInfomation()
-{
+function generateSingleFlightInfomation($flightDetails) {
+
     return <<<SINGLEFLIGHTINFORMATION
         <section class="actual-information">
-            <p>Vluchtnummer: <?php echo $flightNumber ?></p>
-            <p>Bestemming: <?php echo $destination ?></p>
-            <p>Gate: <?php echo $gate ?></p>
-            <p>Vertrektijd: <?php echo $departureTime ?></p>
-            <p>Maatschappij: <?php echo $airline ?></p>
+            <p>Vluchtnummer: {$flightDetails['vluchtnummer']}</p>
+            <p>Bestemming: {$flightDetails['bestemming']}</p>
+            <p>Gate: {$flightDetails['gatecode']}</p>
+            <p>Vertrektijd: {$flightDetails['vertrektijd']}</p>
+            <p>Maatschappij: {$flightDetails['maatschappij']}</p>
         </section>
 
 SINGLEFLIGHTINFORMATION;
