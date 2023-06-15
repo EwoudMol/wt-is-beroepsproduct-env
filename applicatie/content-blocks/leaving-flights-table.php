@@ -41,7 +41,6 @@ function generateDepartureTable($flightTimes) {
 </main>";
 
 return $flightTable;
-
 }
 
 
