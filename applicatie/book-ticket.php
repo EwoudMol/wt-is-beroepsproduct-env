@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+//TODO Renderen van het ticketnummer nog inrichten.
+if (isset($_SESSION["newTicketnumber"])) {
+    var_dump($_SESSION["newTicketnumber"]);
+};
 
     $homePage = false;
     $pageTitle = "Ticket boeken";

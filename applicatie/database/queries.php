@@ -28,7 +28,7 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
     $pagesize = intval($pagesize);
     $skip = intval($skip);
 
-    $sql = "SELECT CONVERT(smalldatetime, vertrektijd) as vertrektijd, vluchtnummer, gatecode, luchthaven.naam, maatschappij.naam
+    $sql = "SELECT CONVERT(smalldatetime, vertrektijd) as vertrektijd, vluchtnummer, gatecode, luchthaven.naam as bestemming, maatschappij.naam as maatschappij
             FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
             JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON bestemming=luchthavencode
             JOIN [GelreAirport].[dbo].[Maatschappij] as maatschappij ON vlucht.maatschappijcode = maatschappij.maatschappijcode
@@ -96,7 +96,9 @@ function getRemainingSpaceFlight($flightNumber){
     $query -> execute([':flightNumber' => $flightNumber]);
     return  $query -> fetch(PDO::FETCH_ASSOC);
 }
-//TODO deze afmaken. Komt vanuit het nieuwe ticket.
+//TODO deze afmaken. Komt vanuit het nieuwe ticket. Er moet nog een baliebijgevoegd worden?
+//TODO De tabel incheckenvlucht moet noge gevuld worden.
+//TODO inchecken kan bij een specifieke balie. Hiervoor nog query maken.
 function registerNewFlight($newFlightDetails){
     global $verbinding;
     $sql = "INSERT INTO [GelreAirport].[dbo].[Vlucht] (vluchtnummer, bestemming, gatecode, max_aantal, max_gewicht_pp, max_totaalgewicht, vertrektijd, maatschappijcode) 
@@ -117,4 +119,26 @@ function registerNewFlight($newFlightDetails){
                                                   FROM [GelreAirport].[dbo].[Vlucht]
                                                   ORDER BY vluchtnummer desc")->fetchColumn();
     return $newFlightnumber;
+}
+
+function registerNewTicket($ticketInformation){
+    global $verbinding;
+    $sql ="  INSERT INTO [GelreAirport].[dbo].[Passagier] (passagiernummer, naam, vluchtnummer, geslacht)
+            VALUES ((SELECT MAX(passagiernummer) FROM [GelreAirport].[dbo].[Passagier])+1,:namePassenger, :flightNumber, :gender);";
+
+    $query = $verbinding ->prepare($sql);
+    $query->execute([
+        ':namePassenger' => $ticketInformation["namePassenger"],
+        ':flightNumber' => $ticketInformation["flightnumber1"],
+        ':gender' => $ticketInformation["gender"]
+    ]);
+
+    $newTicketnumber = $verbinding->query("SELECT TOP (1) [passagiernummer]
+                                                  FROM [GelreAirport].[dbo].[Passagier]
+                                                  ORDER BY passagiernummer desc")->fetchColumn();
+    return $newTicketnumber;
+
+
+
+
 }

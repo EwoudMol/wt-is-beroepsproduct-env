@@ -1,11 +1,13 @@
 <?php
 
 
-
+//TODO wellicht het balienummer en de inchecktijd opnemen.
 
 
 function generatePassengerInformation($passengerDetails){
     return <<<PASSENGERINFO
+
+
 
        <section class="actual-information">
            <p>Passagiersnummer:  {$passengerDetails['passagiernummer']}</p>
