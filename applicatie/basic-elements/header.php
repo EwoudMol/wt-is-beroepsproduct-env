@@ -24,8 +24,7 @@ $headerMenuItems = [
 
 function createHeaderMenu() {
     global $headerMenuItems;
-
-    $isActivePageHomePage = ($_SERVER["REQUEST_URI"] === "/index.php");
+    $isActivePageHomePage = ($_SERVER["REQUEST_URI"] === "/index.php"||$_SERVER["REQUEST_URI"] === "/" );
 
     $headerMenu = '
         <nav>

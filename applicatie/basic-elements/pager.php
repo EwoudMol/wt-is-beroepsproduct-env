@@ -2,7 +2,7 @@
 
 require_once "./database/queries.php";
 
-function generatePager($table, $url, $start, $pagesize) {
+function generatePager($table, $url, $start, $pagesize, $displayFlightsFrom) {
     $pageback = $start - $pagesize;
     $pageback = $pageback < 0 ? 0 : $pageback;
 
@@ -10,8 +10,7 @@ function generatePager($table, $url, $start, $pagesize) {
     //TODO opmaak van de pagenummers en ruimte rond de nummers.
     //TODO kijken of de nummer afgekapt kunnen worden.
 
-    $totalrows = getAmountTableRows($table)[0];
-
+    $totalrows = getAmountTableRows($table, $displayFlightsFrom);
     $pagefw = $start + $pagesize;
     $pagefw = $pagefw > $totalrows[""] ? $start : $pagefw;
 

@@ -1,7 +1,14 @@
 <?php
+//TODO Renderen van het ticketnummer nog inrichten.
+
 
 session_start();
-//TODO Renderen van het ticketnummer nog inrichten.
+
+require_once './forms/search-flight-form.php';
+require_once './forms/ticket-passenger-form.php';
+require_once './content-blocks/remaining-space-flight.php';
+
+
 if (isset($_SESSION["newTicketnumber"])) {
     var_dump($_SESSION["newTicketnumber"]);
 };
@@ -9,13 +16,14 @@ if (isset($_SESSION["newTicketnumber"])) {
     $homePage = false;
     $pageTitle = "Ticket boeken";
 
-    require './forms/search-flight-form.php';
-    require './forms/ticket-passenger-form.php';
-    require './content-blocks/remaining-space-flight.php';
-
 
     $pageContent = searchFlightByNumberForm();
+
+if(!empty($_SESSION["flightDetails"])){
     $pageContent .= generateRemainingSpaceInfo($_SESSION["flightDetails"]);
+}
+
+
     $pageContent .= '</section>';
     $pageContent .= generateTicketForm();
 

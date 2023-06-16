@@ -1,5 +1,5 @@
 <?php
-    require './forms/login-form.php';
+require_once './forms/login-form.php';
 
     $homePage = true;
     $pageTitle = "Welkom bij Gelre Airport";

@@ -3,6 +3,7 @@ session_start();
 
 //TODO verwerk het nieuwe ticket nummer nog netjes
 //TODO alle form validatie nog aan de server kant.
+//TODO opnemen in de documentatie dat er een AK zit op de combinatie van vlucht en stoel niet dubbel.
 
 require_once '../database/queries.php';
 

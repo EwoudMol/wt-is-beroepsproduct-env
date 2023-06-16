@@ -4,9 +4,10 @@ function generateTicketForm()
 {
     return <<<TICKETFORM
 
-<section class="information-field">
+<div class='information-field'>
             <h2>Ticket boeken</h2>
             <form method="POST" action="../util-pages/new_ticket_register.php">
+                <input type="hidden" name="csrf_token" value= {$_SESSION['token']}>
                 <label for="initials">Naam</label>
                 <input type="text" id="namePassenger" name="namePassenger" required><br>
                 <label for="flightnumber1">Vluchtnummer</label>
@@ -23,6 +24,6 @@ function generateTicketForm()
                 <input class="button" type="submit" value="Boek ticket">
 
             </form>
-        </section>
+        </div>
 TICKETFORM;
 }

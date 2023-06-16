@@ -59,7 +59,7 @@ $sideMenuItems = [
     ],
     [
     'role' => 'all',
-    'link' => '../logout.php',
+    'link' => '../util-pages/logout.php',
     'img' => [
         'src' => '../images/sign-out-icon.png',
         'alt' => 'Uitloggen'
@@ -74,7 +74,7 @@ function createSideMenu($role) {
     $sideMenu = '
         <div>
             <label class="hamburger-menu">
-                <input type="checkbox" />
+                <input type="checkbox"/>
             </label>
             <aside class="sidebar">
                 <nav id="nav-menu-staff">';
@@ -82,14 +82,12 @@ function createSideMenu($role) {
     foreach ($sideMenuItems as $sideMenuItem) {
         if ($role === $sideMenuItem['role'] || $sideMenuItem['role'] === 'all') {
             $sideMenu .= '        
-                    <li>
                         <div class="nav-icon">
                             <a href="' . $sideMenuItem["link"] . '">
                                 <img src="' . $sideMenuItem["img"]["src"] . '" alt="' . $sideMenuItem["img"]["alt"] . '">
                                 <p>' . $sideMenuItem["text"] . '</p>
                             </a>
-                        </div>
-                    </li>';
+                        </div>';
         }
     }
 

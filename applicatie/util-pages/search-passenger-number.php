@@ -3,7 +3,10 @@
 session_start();
 
 
-require '../database/queries.php';
+require_once '../database/queries.php';
+
+var_dump($_GET);
+
 
 unset($_SESSION['passengerDetails']);
 unset($_SESSION['flightDetails']);
@@ -15,8 +18,5 @@ $_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
 
         $_SESSION['flightDetails'] = getFlightInformation($vluchtnummer);
     }
-
-    header('location: ../startpage-staff.php');
-
-?>
+    header("location: ../{$_GET["source"]}");
 

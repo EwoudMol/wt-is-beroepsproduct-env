@@ -5,10 +5,11 @@
 function createNewFlightForm() {
     return <<<NEWFLIGHTFORM
         
-            <section class="information-field">
+            <div class='information-field'>
                     <h3>Maak hier een nieuwe vlucht aan:</h3>
         
                     <form method="POST" action="../util-pages/new_flight_register.php">
+                        <input type="hidden" name="csrf_token" value= {$_SESSION['token']}>
                         <label for="destination">Bestemming:</label>
                         <input type="text" id="destination" name="destination" pattern="[A-Z]{3}" placeholder="ABC" required><br>
                         <label for="gatecode">Vertrek gate:</label>
@@ -25,7 +26,7 @@ function createNewFlightForm() {
                         <input type="datetime" id="depart_time" name="depart_time">
                         <input class="button" type="submit" value="Vlucht registreren">
                     </form>
-                </section>
+                </div>
             </section>
 NEWFLIGHTFORM;
 }

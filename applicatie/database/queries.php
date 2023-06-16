@@ -2,12 +2,12 @@
 
 require_once 'db_connectie.php';
 
-
+//----------------------------------------------------------------------------------------------------
 function executeQuery($query) {
     global $verbinding;
     return $verbinding ->query($query, PDO::FETCH_ASSOC) ->fetchAll();
 }
-
+//----------------------------------------------------------------------------------------------------
 function getPassengerLoginDetails($passengerNumber) {
     global $verbinding;
     $sql = "SELECT passagiernummer, naam
@@ -20,7 +20,7 @@ function getPassengerLoginDetails($passengerNumber) {
     return  $query -> fetch(PDO::FETCH_ASSOC);
 }
 
-
+//----------------------------------------------------------------------------------------------------
 function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
     global $verbinding;
     $displayFlightsFrom = date("Y-m-d H:i", $displayFlightsFrom);
@@ -45,17 +45,25 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
 
     return  $query -> fetchAll(PDO::FETCH_ASSOC);
 }
+//----------------------------------------------------------------------------------------------------
+function getAmountTableRows($table, $displayFlightsFrom){
+    global $verbinding;
+    $displayFlightsFrom = date("Y-m-d H:i", $displayFlightsFrom);
 
-function getAmountTableRows($table){
-    return executeQuery("SELECT COUNT(1) FROM $table");
+    $sql = "SELECT COUNT(1) FROM vlucht  WHERE vlucht.vertrektijd > :displayFlightsFrom";
+    $query = $verbinding ->prepare($sql);
+
+    $query->bindParam(':displayFlightsFrom', $displayFlightsFrom, PDO::PARAM_STR);
+    $query -> execute();
+    return $query -> fetch(PDO::FETCH_ASSOC);
 }
-
+//----------------------------------------------------------------------------------------------------
 function getPassengerDetails($passengerNumber){
     global $verbinding;
-   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(*) as aantal
+   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(*) as aantal,sum(bagage.gewicht) as gewicht_bagage
             FROM [GelreAirport].[dbo].[Passagier] AS passagier
-            JOIN [GelreAirport].[dbo].[Vlucht] AS vlucht ON passagier.vluchtnummer = vlucht.vluchtnummer
-            JOIN [GelreAirport].[dbo].[BagageObject] as bagage ON bagage.passagiernummer = passagier.passagiernummer
+            LEFT JOIN [GelreAirport].[dbo].[Vlucht] AS vlucht ON passagier.vluchtnummer = vlucht.vluchtnummer
+            LEFT JOIN [GelreAirport].[dbo].[BagageObject] as bagage ON bagage.passagiernummer = passagier.passagiernummer
             WHERE passagier.passagiernummer = :passengerNumber
             GROUP BY passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer";
 
@@ -64,7 +72,7 @@ function getPassengerDetails($passengerNumber){
     return  $query -> fetch(PDO::FETCH_ASSOC);
 
 }
-
+//----------------------------------------------------------------------------------------------------
 function getFlightInformation($flightNumber){
     global $verbinding;
     $sql = "SELECT  vluchtnummer, CONVERT(smalldatetime, vertrektijd) as vertrektijd, gatecode, luchthaven.naam as bestemming, maatschappij.naam as maatschappij
@@ -77,7 +85,7 @@ function getFlightInformation($flightNumber){
     $query -> execute([':flightNumber' => $flightNumber]);
     return  $query -> fetch(PDO::FETCH_ASSOC);
 }
-
+//----------------------------------------------------------------------------------------------------
 function getRemainingSpaceFlight($flightNumber){
     global $verbinding;
     $sql = "SELECT Vlucht.vluchtnummer, luchthaven.naam as bestemming,  max_aantal as max_passagiers,  bookedpassengers.aantal as booked_passengers, max_aantal - bookedpassengers.aantal as remaining_passengers, max_totaalgewicht, SUM(BagageObject.gewicht) as gewicht_bagage, max_totaalgewicht - SUM(BagageObject.gewicht) as remaining_weight
@@ -96,7 +104,9 @@ function getRemainingSpaceFlight($flightNumber){
     $query -> execute([':flightNumber' => $flightNumber]);
     return  $query -> fetch(PDO::FETCH_ASSOC);
 }
-//TODO deze afmaken. Komt vanuit het nieuwe ticket. Er moet nog een baliebijgevoegd worden?
+
+//----------------------------------------------------------------------------------------------------
+//TODO deze afmaken. Komt vanuit het nieuwe ticket. Er moet nog een balie bijgevoegd worden?
 //TODO De tabel incheckenvlucht moet noge gevuld worden.
 //TODO inchecken kan bij een specifieke balie. Hiervoor nog query maken.
 function registerNewFlight($newFlightDetails){
@@ -120,7 +130,7 @@ function registerNewFlight($newFlightDetails){
                                                   ORDER BY vluchtnummer desc")->fetchColumn();
     return $newFlightnumber;
 }
-
+//----------------------------------------------------------------------------------------------------
 function registerNewTicket($ticketInformation){
     global $verbinding;
     $sql ="  INSERT INTO [GelreAirport].[dbo].[Passagier] (passagiernummer, naam, vluchtnummer, geslacht)
@@ -138,7 +148,58 @@ function registerNewTicket($ticketInformation){
                                                   ORDER BY passagiernummer desc")->fetchColumn();
     return $newTicketnumber;
 
+}
+//----------------------------------------------------------------------------------------------------
+function getLuggageFlightInfo($flightNumber){
+    global $verbinding;
+    $sql = "SELECT vlucht.vluchtnummer, vlucht.bestemming, vlucht.max_gewicht_pp, maatschappij.max_objecten_pp
+FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
+JOIN [GelreAirport].[dbo].[Maatschappij] AS maatschappij ON vlucht.maatschappijcode = maatschappij.maatschappijcode
+WHERE vlucht.vluchtnummer = :flightNumber;";
 
+    $query = $verbinding ->prepare($sql);
+    $query -> execute([':flightNumber' => $flightNumber]);
+    return  $query -> fetch(PDO::FETCH_ASSOC);
+
+}
+
+//----------------------------------------------------------------------------------------------------
+function registerNewLuggage($luggageInformation){
+    global $verbinding;
+var_dump($luggageInformation);
+echo "/n";
+
+
+    $passengerNumber = intval($luggageInformation["passengerNumber"]);
+var_dump($passengerNumber);
+    $weight = $luggageInformation["weight"];
+
+    $objectVolgnummerQuery = "SELECT MAX(objectvolgnummer) FROM [GelreAirport].[dbo].[BagageObject] WHERE passagiernummer = :passengerNumber";
+    $objectVolgnummerStatement = $verbinding->prepare($objectVolgnummerQuery);
+    $objectVolgnummerStatement->execute([':passengerNumber' => $passengerNumber]);
+    $maxObjectVolgnummer = $objectVolgnummerStatement->fetchColumn();
+
+
+
+    $sql = "INSERT INTO [GelreAirport].[dbo].[BagageObject] (passagiernummer, objectvolgnummer, gewicht)
+            VALUES (:passengerNumber, :objectVolgnummer, :weight);";
+    $query = $verbinding->prepare($sql);
+    $query->execute([
+        ':passengerNumber' => $passengerNumber,
+        ':objectVolgnummer' => $maxObjectVolgnummer + 1,
+        ':weight' => $weight
+    ]);
+
+
+    $newLuggageObject = $verbinding->query("  SELECT MAX(objectvolgnummer) luggageNumber
+                                                  FROM [GelreAirport].[dbo].[BagageObject] 
+                                                  WHERE passagiernummer = {$passengerNumber};") ->fetchColumn();
+
+
+
+    var_dump($newLuggageObject);
+    return $newLuggageObject;
 
 
 }
+

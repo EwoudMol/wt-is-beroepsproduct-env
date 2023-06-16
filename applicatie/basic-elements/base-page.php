@@ -40,10 +40,10 @@
     </header>
 
     <main>
-        <section class="page-content">
+        <div class="page-content">
             <?= $sideMenu ?>
             <?= $pageContent ?>
-        </section>
+        </div>
     </main>
 
     <footer>

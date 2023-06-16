@@ -3,12 +3,12 @@
 session_start();
 //TODO de links van de verschillende pagina's zijn niet leesbaar.
 
-require './content-blocks/leaving-flights-table.php';
+require_once './content-blocks/leaving-flights-table.php';
 require_once('./database/queries.php');
 require_once './basic-elements/pager.php';
 
     date_default_timezone_set("Europe/Amsterdam");
-    $displayFlightsFrom = time() - 5*60;
+    $displayFlightsFrom = time();
 
     $homePage = false;
     $pageTitle = "Vertrek Vluchten";
@@ -22,7 +22,7 @@ require_once './basic-elements/pager.php';
     $flightTimes = getLeavingFlights($displayFlightsFrom,$pagesize,$start);
 
     $pageContent = generateDepartureTable($flightTimes);
-    $pageContent .=generatePager("Vlucht", $segments[0],$start,$pagesize);
+    $pageContent .=generatePager("Vlucht", $segments[0],$start,$pagesize, $displayFlightsFrom);
 
 include "./basic-elements/base-page.php";
 

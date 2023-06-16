@@ -5,10 +5,10 @@
 //TODO het naam veld nog omzetten naar password. Wel in de documentatie opnemen dat het password niet gehashed in de database staat.
 function createLoginForm() {
     return <<<LOGINFORM
-                <section class="page-content">
-                    <section class="information-field">
+                <div class='page-content'>
+                    <div class='information-field'>
                         <h2>Inloggen</h2>  
-                        <form id="login-form" method="POST" action="../login.php">
+                        <form id="login-form" method="POST" action="./util-pages/login.php">
                             <label for="user">Soort gebruiker:</label>
                             <select id="user" name="user">
                                 <option value="passenger">Passagier</option>
@@ -20,8 +20,8 @@ function createLoginForm() {
                             <input type="text" id="name" name="name" pattern="[A-Za-z]{*}"><br>
                             <input class="button" type="submit"  name="inloggen">
                         </form>
-                    </section>
-                </section>
+                    </div>
+                </div>
 LOGINFORM;
 }
 

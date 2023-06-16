@@ -1,16 +1,20 @@
 <?php
 
-require './content-blocks/info-passenger.php';
+require_once './content-blocks/info-passenger.php';
 function searchPassengerByNumberForm(){
+
+
+
   return <<<SEARCHPASSENGERFORM
-    <section class="information-field">
+    <div class='information-field'>
         <h2>Persoongegevens</h2>
         <form id="search-passenger-number" action="../util-pages/search-passenger-number.php">
+            <input type="hidden" id="source" name="source" value={$_SERVER["REQUEST_URI"]}>
             <label for="passengernumber"> Passagiersnummer:</label>
-            <input type="number" id="passengernumber" name="passengernumber" pattern="[0-9]{5}" placeholder="12345">
+            <input type="number" id="passengernumber" name="passengernumber" min="23452" max="60000" step="1" placeholder="12345">
             <input class="button" type="submit" value="Zoeken">
         </form>
 SEARCHPASSENGERFORM;
 
 }
-?>
+

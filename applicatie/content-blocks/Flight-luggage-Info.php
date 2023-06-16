@@ -1,18 +1,18 @@
 <?php
 
 
-function flightLugggageInfo()
+function flightLugggageInfo($luggageDetails)
 {
     return <<<FLIGHTLUGGAGEINFO
 
-            <section class="information-field">
-               <h2>Vluchtgegevens</h2>
-                <section class="actual-information">
-                    <p>Vluchtnummer:<?php //echo $flightNumber ?></p>
-                    <p>Bestemming:<?php //echo $destination ?></p>
-                    <p>Resterende kilo's:<?php //echo $weightAvailableLuggageLeft ?></p>
-                    <p>Maximum aantal stuks bagage per passagier: <?php //echo $maxAmountLuggageAirline?></p>
-                </section>
+  
+               <h2>Bagage gegevens</h2>
+                <div class="actual-information">
+                    <p>Vluchtnummer:{$luggageDetails['vluchtnummer']}</p>
+                    <p>Bestemming:{$luggageDetails['bestemming']}</p>
+                    <p>Maximum kilo's per passagier:{$luggageDetails['max_gewicht_pp']}</p>
+                    <p>Maximum aantal stuks bagage per passagier: {$luggageDetails['max_objecten_pp']}</p>
+                </div>
             </section>
 FLIGHTLUGGAGEINFO;
 }

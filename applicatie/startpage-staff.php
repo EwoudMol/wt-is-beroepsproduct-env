@@ -2,16 +2,15 @@
 
 session_start();
 
-require './forms/search-passenger-form.php';
-require './forms/search-flight-form.php';
-require './content-blocks/info-single-flight.php';
+require_once './forms/search-passenger-form.php';
+require_once './forms/search-flight-form.php';
+require_once './content-blocks/info-single-flight.php';
 
     $homePage = false;
     $pageTitle = "Passagiersdetails";
 
 
-
-$pageContent = searchPassengerByNumberForm();
+$pageContent = searchPassengerByNumberForm($_SERVER["REQUEST_URI"]);
 
 if (isset($_SESSION["passengerDetails"])) {
     $pageContent .= generatePassengerInformation($_SESSION["passengerDetails"]);
