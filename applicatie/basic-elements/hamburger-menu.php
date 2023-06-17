@@ -74,7 +74,7 @@ function createSideMenu($role) {
     $sideMenu = '
         <div>
             <label class="hamburger-menu">
-                <input type="checkbox"/>
+                <input type="checkbox">
             </label>
             <aside class="sidebar">
                 <nav id="nav-menu-staff">';

@@ -8,7 +8,7 @@ function generateTicketForm()
             <h2>Ticket boeken</h2>
             <form method="POST" action="../util-pages/new_ticket_register.php">
                 <input type="hidden" name="csrf_token" value= {$_SESSION['token']}>
-                <label for="initials">Naam</label>
+                <label for="namePassenger">Naam</label>
                 <input type="text" id="namePassenger" name="namePassenger" required><br>
                 <label for="flightnumber1">Vluchtnummer</label>
                 <input type="number" id="flightnumber1" name="flightnumber1" required><br>

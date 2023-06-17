@@ -1,9 +1,16 @@
 <?php
-
 session_start();
 
+
+if(!isset ($_SESSION["role"])) {
+    header('Location: ../index.php');
+}
+
+
+
+
 if (isset($_SESSION["newFlightnumber"])) {
-    var_dump($_SESSION["newFlightnumber"]);
+ //   var_dump($_SESSION["newFlightnumber"]);
 };
 
 require_once './forms/new-flight-form.php';

@@ -1,5 +1,5 @@
 <?php
-
+//TODO voor passagiers geen foutmelding in W3 validator.
 
 function flightLugggageInfo($luggageDetails)
 {
@@ -13,6 +13,6 @@ function flightLugggageInfo($luggageDetails)
                     <p>Maximum kilo's per passagier:{$luggageDetails['max_gewicht_pp']}</p>
                     <p>Maximum aantal stuks bagage per passagier: {$luggageDetails['max_objecten_pp']}</p>
                 </div>
-            </section>
+
 FLIGHTLUGGAGEINFO;
 }

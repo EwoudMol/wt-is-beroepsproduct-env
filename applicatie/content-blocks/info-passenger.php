@@ -6,9 +6,7 @@
 
 function generatePassengerInformation($passengerDetails){
     return <<<PASSENGERINFO
-
-
-
+       
        <div class="actual-information">
            <p>Passagiersnummer:  {$passengerDetails['passagiernummer']}</p>
             <p>naam passagier: {$passengerDetails['naam']}</p>

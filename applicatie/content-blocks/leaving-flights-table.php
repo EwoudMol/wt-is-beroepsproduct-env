@@ -2,24 +2,40 @@
 //TODO deze nog aanpassen aan responsive design.
 //TODO moet hier de balie nog bij?
 
+function generateColumnHead($column, $sortColumn, $sortOrder){
+    $headColumn = $column;
+    if($column === $sortColumn) {
+        if ($sortOrder === 'asc') {
+            $headColumn .='&#9650;';
+        } else {
+            $headColumn .='&#9660;';
+        }
+    }
+    return $headColumn;
+}
+
 
 function generateDepartureTable($flightTimes) {
-    $flightTable =
-        <<<FLIGHTTABLE
-    <section id="page-content-flight">
+    $sortColumn = isset($_GET['column']) ? $_GET['column'] : 'vertrektijd';
+    $sortOrder = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
+    $sortNew = $sortOrder === 'asc' ? 'desc' : 'asc';
+
+
+
+    $flightTable = '<section id="page-content-flight">
         <h2>Overzicht van de vertrekkende vluchten</h2>
         <table>
             <thead>
             <tr>
-                <th class="prio-1">Vertrektijd</th>
-                <th class="prio-1">Vlucht</th>
-                <th class="prio-1">Gate</th>
-                <th class="prio-1">Bestemming</th>
-                <th class="prio-3">Maatschappij</th>
+                <th class="prio-1"><a href="?column=vertrektijd&order=' . $sortNew . '">' . generateColumnHead("vertrektijd", $sortColumn, $sortOrder) . '</a></th>
+                <th class="prio-1"><a href="?column=vluchtnummer&order=' . $sortNew . '">' . generateColumnHead("vluchtnummer", $sortColumn, $sortOrder) . '</a></th>
+                <th class="prio-1"><a href="?column=gatecode&order=' . $sortNew . '">' . generateColumnHead("gatecode", $sortColumn, $sortOrder) . '</a></th>
+                <th class="prio-1"><a href="?column=bestemming&order=' . $sortNew . '">' . generateColumnHead("bestemming", $sortColumn, $sortOrder) . '</a></th>
+                <th class="prio-3"><a href="?column=maatschappij&order=' . $sortNew . '">' . generateColumnHead("maatschappij", $sortColumn, $sortOrder) . '</a></th>
             </tr>
             </thead>
-            <tbody>
-   FLIGHTTABLE;
+            <tbody>';
+   
 
     foreach ($flightTimes as $flightTime){
         $flightTable .= "

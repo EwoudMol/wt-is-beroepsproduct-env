@@ -21,19 +21,28 @@ function getPassengerLoginDetails($passengerNumber) {
 }
 
 //----------------------------------------------------------------------------------------------------
-function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
+function getLeavingFlights($displayFlightsFrom, $column, $sort, $pagesize = 10, $skip = 0) {
+//    var_dump($displayFlightsFrom, $column, $sort, $pagesize, $skip);
     global $verbinding;
     $displayFlightsFrom = date("Y-m-d H:i", $displayFlightsFrom);
 
+    $allowedColumns = ['vertrektijd', 'vluchtnummer', 'gatecode', 'bestemming', 'maatschappij'];
+    $column = in_array($column,$allowedColumns) ? $column : 'vertrektijd' ;
+
+    $allowedSorts = array('asc', 'desc');
+    $sort = in_array($sort, $allowedSorts) ? $sort : 'asc';
+ //   var_dump($sort);
+
     $pagesize = intval($pagesize);
     $skip = intval($skip);
+
 
     $sql = "SELECT CONVERT(smalldatetime, vertrektijd) as vertrektijd, vluchtnummer, gatecode, luchthaven.naam as bestemming, maatschappij.naam as maatschappij
             FROM [GelreAirport].[dbo].[Vlucht] AS vlucht
             JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON bestemming=luchthavencode
             JOIN [GelreAirport].[dbo].[Maatschappij] as maatschappij ON vlucht.maatschappijcode = maatschappij.maatschappijcode
             WHERE vlucht.vertrektijd > :displayFlightsFrom
-            ORDER BY vertrektijd ASC
+            ORDER BY $column $sort
             OFFSET :skip ROWS FETCH NEXT :pagesize ROWS ONLY";
 
     $query = $verbinding ->prepare($sql);
@@ -41,6 +50,7 @@ function getLeavingFlights($displayFlightsFrom, $pagesize = 10, $skip = 0) {
     $query->bindParam(':displayFlightsFrom', $displayFlightsFrom, PDO::PARAM_STR);
     $query->bindParam(':skip', $skip, PDO::PARAM_INT);
     $query->bindParam(':pagesize', $pagesize, PDO::PARAM_INT);
+
     $query->execute();
 
     return  $query -> fetchAll(PDO::FETCH_ASSOC);
@@ -166,12 +176,12 @@ WHERE vlucht.vluchtnummer = :flightNumber;";
 //----------------------------------------------------------------------------------------------------
 function registerNewLuggage($luggageInformation){
     global $verbinding;
-var_dump($luggageInformation);
+//var_dump($luggageInformation);
 echo "/n";
 
 
     $passengerNumber = intval($luggageInformation["passengerNumber"]);
-var_dump($passengerNumber);
+//var_dump($passengerNumber);
     $weight = $luggageInformation["weight"];
 
     $objectVolgnummerQuery = "SELECT MAX(objectvolgnummer) FROM [GelreAirport].[dbo].[BagageObject] WHERE passagiernummer = :passengerNumber";
@@ -197,7 +207,7 @@ var_dump($passengerNumber);
 
 
 
-    var_dump($newLuggageObject);
+ //   var_dump($newLuggageObject);
     return $newLuggageObject;
 
 

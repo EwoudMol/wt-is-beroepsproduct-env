@@ -3,6 +3,14 @@
 
 session_start();
 
+if(!isset ($_SESSION["role"])) {
+    header('Location: ../index.php');
+}
+
+
+
+
+
 require_once './forms/search-passenger-form.php';
 require_once './forms/extra-luggage-form.php';
 require_once './content-blocks/Flight-luggage-Info.php';
@@ -22,10 +30,8 @@ if(($_SESSION["role"] === 'passenger')){
     $_SESSION["flightDetails"] = getFlightInformation($_SESSION["passengerDetails"]['vluchtnummer']);
 } else {
     $pageContent .= searchPassengerByNumberForm($_SERVER["REQUEST_URI"]);
-
-
-    $passengerDetails = empty($_SESSION["passengerDetails"]) ? getPassengerDetails($_SESSION['passengerNumber']) : [];
-    $flightDetails = empty($_SESSION["flightDetails"]) ? getFlightInformation($passengerDetails['vluchtnummer']) : [];
+    $passengerDetails = isset($_SESSION["passengerDetails"]) ? getPassengerDetails($_SESSION["passengerDetails"]["passagiernummer"]) : [];
+    $flightDetails = isset($_SESSION["flightDetails"]) ? getFlightInformation($passengerDetails['vluchtnummer']) : [];
 }
 
 
@@ -35,10 +41,11 @@ if(!empty($_SESSION["passengerDetails"])) {
     $pageContent .= '<div class= "information-field">';
     $pageContent .= '<h2>Uw persoongegevens</h2>';
     $pageContent .= generatePassengerInformation($_SESSION["passengerDetails"]);
-    //$pageContent .= '<section class= "information-field">';
+ //   $pageContent .= '<section class= "information-field">';
     $pageContent .= '<h2>Uw Vluchtgegevens</h2>';
     $pageContent .= generateSingleFlightInfomation($_SESSION["flightDetails"]);
     $pageContent .= flightLugggageInfo($luggageDetails);
+    $pageContent .= '</div>';
 
 
     if ($_SESSION["passengerDetails"]["aantal"] < $luggageDetails["max_objecten_pp"] && $_SESSION["passengerDetails"]["gewicht_bagage"] < $luggageDetails["max_gewicht_pp"]) {
@@ -52,7 +59,7 @@ if(!empty($_SESSION["passengerDetails"])) {
 }
 
 if(isset($_SESSION["newLuggageObjectNumber"])) {
-    var_dump($_SESSION["newLuggageObjectNumber"]);
+ //   var_dump($_SESSION["newLuggageObjectNumber"]);
     echo "Bagageobject {$_SESSION["newLuggageObjectNumber"]} ingeboekt";
     unset($_SESSION["newLuggageObjectNumber"]);
 }

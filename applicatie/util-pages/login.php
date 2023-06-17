@@ -8,8 +8,6 @@
 
 
 
-
-
 if ($_POST["user"] === "staff" && $name === "test" && $number === '98765'){
     $_SESSION['role'] = "staff";
     $_SESSION['staffnumber'] = $_POST["$number"];

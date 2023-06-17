@@ -2,6 +2,7 @@
 
 function searchFlightByNumberForm(){
     return <<<SEARCHFLIGHTFORM
+
         <div class='information-field'>
             <h2>Vlucht zoeken</h2>
             <form id="search-flight-number"  action="../util-pages/search-flight-number.php">

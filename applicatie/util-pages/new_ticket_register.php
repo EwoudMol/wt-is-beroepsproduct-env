@@ -6,26 +6,33 @@ session_start();
 //TODO opnemen in de documentatie dat er een AK zit op de combinatie van vlucht en stoel niet dubbel.
 
 require_once '../database/queries.php';
-
+$postedToken = $_POST['csrf_token'];
 $error = [];
 
 
-$newTicketDetails = $_POST;
-echo var_dump($newTicketDetails);
+if ($postedToken === $_SESSION['token']){
+        $newTicketDetails = $_POST;
+//        echo var_dump($newTicketDetails);
 
-$newTicketDetails["deskNumber"] = "";
-$newTicketDetails["seat"] = "";
-$newTicketDetails["seat"] = "";
+        $newTicketDetails["deskNumber"] = "";
+        $newTicketDetails["seat"] = "";
+        $newTicketDetails["seat"] = "";
 
 
 
-$newTicketnumber = registerNewTicket($_POST);
-$_SESSION["newTicketnumber"] = $newTicketnumber;
+        $newTicketnumber = registerNewTicket($_POST);
+        $_SESSION["newTicketnumber"] = $newTicketnumber;
 
-echo var_dump($newTicketnumber);
-echo var_dump($_SESSION["newTicketnumber"]);
+ //       echo var_dump($newTicketnumber);
+ //       echo var_dump($_SESSION["newTicketnumber"]);
 
-header('location: ../book-ticket.php');
+        header('location: ../book-ticket.php');
+
+
+} else {
+    die("Ongeldig verzoek. Probeer het opnieuw.");
+}
+
 
 
 
