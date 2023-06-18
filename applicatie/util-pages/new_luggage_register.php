@@ -1,15 +1,29 @@
 <?php
 
-session_start();
+
 
 //TODO verwerk het nieuwe object nummer nog netjes
 //TODO alle form validatie nog aan de server kant.
 
+
+
+
+
+
+require_once '../util-pages/session.php';
 require_once '../database/queries.php';
-$extraLuggage = ["passengerNumber" => $_POST["passengerNumber"], "weight" => floatval($_POST["weight-extra-luggage"])];
+require_once 'sanitize_form_fields.php';
+
 $postedToken = $_POST['csrf_token'];
 
+
 if ($postedToken === $_SESSION['token']){
+    $newLuggage = sanatizeDataInput($_POST);
+
+    $extraLuggage = ["passengerNumber" => $newLuggage["passengerNumber"], "weight" => floatval($newLuggage["weight-extra-luggage"])];
+
+
+
     $newLuggageObjectNumber = registerNewLuggage($extraLuggage);
  //   var_dump($newLuggageObjectNumber);
     $_SESSION["newLuggageObjectNumber"] = $newLuggageObjectNumber +1;

@@ -3,6 +3,8 @@
 require_once './content-blocks/info-passenger.php';
 function searchPassengerByNumberForm(){
 
+    var_dump($_SERVER["REQUEST_URI"]);
+
   return <<<SEARCHPASSENGERFORM
     
     <div class='information-field'>

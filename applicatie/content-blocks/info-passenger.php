@@ -5,6 +5,8 @@
 
 
 function generatePassengerInformation($passengerDetails){
+
+
     return <<<PASSENGERINFO
        
        <div class="actual-information">
@@ -16,6 +18,7 @@ function generatePassengerInformation($passengerDetails){
       </div>
 
 PASSENGERINFO;
+
 }
 
 

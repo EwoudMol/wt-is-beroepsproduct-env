@@ -1,27 +1,22 @@
 <?php
 //TODO de boodschap terug renderen
 
-session_start();
+require_once './util-pages/session.php';
 
 if(!isset ($_SESSION["role"])) {
     header('Location: ../index.php');
 }
-
-
-
-
 
 require_once './forms/search-passenger-form.php';
 require_once './forms/extra-luggage-form.php';
 require_once './content-blocks/Flight-luggage-Info.php';
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
+require_once './content-blocks/error_messages.php';
 require_once './database/queries.php';
 
 $homePage = false;
 $pageTitle = "Bagage details";
-
-
 $pageContent = '';
 
 
@@ -55,8 +50,16 @@ if(!empty($_SESSION["passengerDetails"])) {
             <div class= "information-field">
                 <h3 > Er is geen mogelijkheid om het gewicht of het aantal bagagestukken te wijzigen. </h3 >
             </div >';
+
     }
+
 }
+
+$pageContent .= printErrorMessages();
+
+unset($_SESSION["passengerDetails"]);
+unset($_SESSION["flightDetails"]);
+
 
 if(isset($_SESSION["newLuggageObjectNumber"])) {
  //   var_dump($_SESSION["newLuggageObjectNumber"]);

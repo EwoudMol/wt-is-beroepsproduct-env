@@ -1,10 +1,11 @@
 <?php
-    session_start();
-
+    require_once '../util-pages/session.php';
     require_once '../database/queries.php';
+    require_once 'sanitize_form_fields.php';
 
     $name = htmlspecialchars(strtolower($_POST["name"]));
     $number = htmlspecialchars($_POST["number"]);
+    $_SESSION["errors"] = [];
 
 
 
@@ -30,11 +31,17 @@ if ($_POST["user"] === "staff" && $name === "test" && $number === '98765'){
 
         header('Location: ../startpage-passenger.php');
     } else {
+        $_SESSION["errors"][]= "Geef geldige login gegevens";
         header('Location: ../index.php');
+
     }
 
 } else {
+    $_SESSION["errors"][]= "Geef geldige login gegevens";
     header('Location: ../index.php');
+
+
+
 }
 
 

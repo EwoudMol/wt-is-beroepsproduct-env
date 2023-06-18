@@ -1,21 +1,31 @@
 <?php
 
-session_start();
+require_once '../util-pages/session.php';
 
 require_once '../database/queries.php';
 
 unset($_SESSION['passengerDetails']);
 unset($_SESSION['flightDetails']);
 
-//var_dump($_GET);
 
-if($_GET["source"] === "/book-ticket.php"){
-    $_SESSION['flightDetails'] = getRemainingSpaceFlight($_GET['flightnumber']);
+if(empty($_GET['flightnumber'])){
+    $_SESSION["errors"][] = "Geef een geldig vluchtnummer";
 } else {
-    $_SESSION['flightDetails'] = getFlightInformation($_GET['flightnumber']);
+
+
+    $cleanedSource = str_replace("/", "", $_GET["source"]);
+
+    if ($cleanedSource === "book-ticket.php") {
+        $_SESSION['flightDetails'] = getRemainingSpaceFlight($_GET['flightnumber']);
+
+    } else {
+        $_SESSION['flightDetails'] = getFlightInformation($_GET['flightnumber']);
+
+
+    }
 }
 
-//var_dump($_SESSION['flightDetails']);
+
 
 header("location: ../{$_GET["source"]}");
 

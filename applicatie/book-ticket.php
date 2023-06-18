@@ -1,6 +1,6 @@
 <?php
 //TODO Renderen van het ticketnummer nog inrichten.
-session_start();
+require_once './util-pages/session.php';
 
 
 if(!isset ($_SESSION["role"])) {
@@ -8,34 +8,34 @@ if(!isset ($_SESSION["role"])) {
 }
 
 
-
-
-
-
 require_once './forms/search-flight-form.php';
 require_once './forms/ticket-passenger-form.php';
 require_once './content-blocks/remaining-space-flight.php';
+require_once './content-blocks/error_messages.php';
+
+
+
+
+    $homePage = false;
+    $pageTitle = "Ticket boeken";
+
+    $pageContent = searchFlightByNumberForm();
+
+if(isset($_SESSION["flightDetails"])){
+    $pageContent .= generateRemainingSpaceInfo($_SESSION["flightDetails"]);
+    unset($_SESSION["flightDetails"]);
+
+
+}
+    $pageContent .= '</div>';
+    $pageContent .= generateTicketForm();
+    $pageContent .= printErrorMessages();
+    $pageContent .= '</div>';
 
 
 if (isset($_SESSION["newTicketnumber"])) {
 //    var_dump($_SESSION["newTicketnumber"]);
 };
-
-    $homePage = false;
-    $pageTitle = "Ticket boeken";
-
-
-    $pageContent = searchFlightByNumberForm();
-
-if(!empty($_SESSION["flightDetails"])){
-    $pageContent .= generateRemainingSpaceInfo($_SESSION["flightDetails"]);
-}
-
-
-
-    $pageContent .= generateTicketForm();
-    $pageContent .= '</div>';
-
 
 include "./basic-elements/base-page.php";
 

@@ -1,8 +1,9 @@
 <?php
 
-
-
 //TODO het naam veld nog omzetten naar password. Wel in de documentatie opnemen dat het password niet gehashed in de database staat.
+
+
+
 function createLoginForm() {
     return <<<LOGINFORM
                 <div class='page-content'>

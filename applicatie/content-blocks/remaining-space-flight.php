@@ -1,6 +1,7 @@
 <?php
 
 function generateRemainingSpaceInfo($flightDetails){
+
     return <<<REMAININGSPACE
             <div id="place-left-flight">
                 <p>Vluchtnummer: {$flightDetails['vluchtnummer']}</p>

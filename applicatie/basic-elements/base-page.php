@@ -43,6 +43,8 @@
         <div class="page-content">
             <?= $sideMenu ?>
             <?= $pageContent ?>
+
+
         </div>
     </main>
 

@@ -1,17 +1,19 @@
 <?php
-session_start();
+
 
 //TODO verwerk het nieuwe ticket nummer nog netjes
 //TODO alle form validatie nog aan de server kant.
 //TODO opnemen in de documentatie dat er een AK zit op de combinatie van vlucht en stoel niet dubbel.
-
+require_once '../util-pages/session.php';
+require_once '../util-pages/sanitize_form_fields.php';
 require_once '../database/queries.php';
+
 $postedToken = $_POST['csrf_token'];
 $error = [];
 
 
 if ($postedToken === $_SESSION['token']){
-        $newTicketDetails = $_POST;
+    $newTicketDetails = sanatizeDataInput($_POST);
 //        echo var_dump($newTicketDetails);
 
         $newTicketDetails["deskNumber"] = "";

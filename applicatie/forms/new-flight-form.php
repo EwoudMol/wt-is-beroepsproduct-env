@@ -1,7 +1,5 @@
 <?php
 
-
-
 function createNewFlightForm() {
     return <<<NEWFLIGHTFORM
         
