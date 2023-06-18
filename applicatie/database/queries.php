@@ -143,13 +143,14 @@ function registerNewFlight($newFlightDetails){
 //----------------------------------------------------------------------------------------------------
 function registerNewTicket($ticketInformation){
     global $verbinding;
-    $sql ="  INSERT INTO [GelreAirport].[dbo].[Passagier] (passagiernummer, naam, vluchtnummer, geslacht)
-            VALUES ((SELECT MAX(passagiernummer) FROM [GelreAirport].[dbo].[Passagier])+1,:namePassenger, :flightNumber, :gender);";
+    $sql ="  INSERT INTO [GelreAirport].[dbo].[Passagier] (passagiernummer, naam, vluchtnummer, stoel, geslacht)
+            VALUES ((SELECT MAX(passagiernummer) FROM [GelreAirport].[dbo].[Passagier])+1,:namePassenger, :flightNumber, :seat, :gender);";
 
     $query = $verbinding ->prepare($sql);
     $query->execute([
         ':namePassenger' => $ticketInformation["namePassenger"],
         ':flightNumber' => $ticketInformation["flightnumber1"],
+        ':seat' => $ticketInformation["seat"],
         ':gender' => $ticketInformation["gender"]
     ]);
 

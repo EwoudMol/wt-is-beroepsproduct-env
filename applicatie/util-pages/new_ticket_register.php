@@ -13,22 +13,27 @@ $error = [];
 
 
 if ($postedToken === $_SESSION['token']){
+    if($_SESSION["remaining_places"] < 1) {
+        $_SESSION["errors"][] = "Er is geen plaats op deze vlucht. Het ticket is niet geboekt.";
+    }
+
+
     $newTicketDetails = sanatizeDataInput($_POST);
 //        echo var_dump($newTicketDetails);
 
         $newTicketDetails["deskNumber"] = "";
-        $newTicketDetails["seat"] = "";
-        $newTicketDetails["seat"] = "";
+        $newTicketDetails["seat"] = rand(50,100);
 
 
 
-        $newTicketnumber = registerNewTicket($_POST);
+
+        $newTicketnumber = registerNewTicket($newTicketDetails);
         $_SESSION["newTicketnumber"] = $newTicketnumber;
 
  //       echo var_dump($newTicketnumber);
  //       echo var_dump($_SESSION["newTicketnumber"]);
 
-        header('location: ../book-ticket.php');
+header('location: ../book-ticket.php');
 
 
 } else {

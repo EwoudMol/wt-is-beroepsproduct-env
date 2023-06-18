@@ -32,6 +32,7 @@ if(($_SESSION["role"] === 'passenger')){
 
 if(!empty($_SESSION["passengerDetails"])) {
     $luggageDetails = getLuggageFlightInfo($_SESSION["passengerDetails"]['vluchtnummer']);
+    $_SESSION["maxLuggageLeftPassenger"] = ($luggageDetails['max_gewicht_pp'] - $_SESSION['passengerDetails']['gewicht_bagage']);
 
     $pageContent .= '<div class= "information-field">';
     $pageContent .= '<h2>Uw persoongegevens</h2>';

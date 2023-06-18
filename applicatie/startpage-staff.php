@@ -19,7 +19,7 @@ $pageTitle = "Passagiersdetails";
 
 $pageContent = searchPassengerByNumberForm($_SERVER["REQUEST_URI"]);
 
-if (isset($_SESSION["passengerDetails"])) {
+if (!empty($_SESSION["passengerDetails"])) {
     $pageContent .= generatePassengerInformation($_SESSION["passengerDetails"]);
     unset($_SESSION["passengerDetails"]);
 }
@@ -27,7 +27,7 @@ $pageContent .= '</div>';
 
 $pageContent .= searchFlightByNumberForm();
 
-if (isset($_SESSION["flightDetails"])) {
+if (!empty($_SESSION["flightDetails"])) {
     $pageContent .= generateSingleFlightInfomation($_SESSION["flightDetails"]);
     unset($_SESSION["flightDetails"]);
 
