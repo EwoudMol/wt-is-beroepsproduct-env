@@ -2,8 +2,7 @@
 
 require_once './util-pages/session.php';
 
-function printErrorMessages()
-{
+function printErrorMessages() {
     $errorText = '';
 
     if (isset($_SESSION["errors"])) {
@@ -18,6 +17,6 @@ function printErrorMessages()
             }
         }
 
-        return $errorText;
     }
+    return $errorText;
 }

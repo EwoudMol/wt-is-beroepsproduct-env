@@ -34,7 +34,7 @@ if(isset($_SESSION["flightDetails"])){
 
 
 if (isset($_SESSION["newTicketnumber"])) {
-//    var_dump($_SESSION["newTicketnumber"]);
+        var_dump($_SESSION["newTicketnumber"]);
 };
 
 include "./basic-elements/base-page.php";
