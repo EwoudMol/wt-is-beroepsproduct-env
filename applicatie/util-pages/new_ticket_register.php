@@ -12,6 +12,15 @@ $postedToken = $_POST['csrf_token'];
 $error = [];
 
 
+function randomSeatGenerator(){
+    $letters =['A', 'B', 'C', 'D', 'E', 'F','G','H','I'];
+    $randomLetter = $letters[array_rand($letters)];
+    $randomNumber = str_pad(rand(1,36),2,'0', STR_PAD_LEFT);
+    return $randomLetter . $randomNumber;
+}
+
+
+
 if ($postedToken === $_SESSION['token']){
     if($_SESSION["remaining_places"] < 1) {
         $_SESSION["errors"][] = "Er is geen plaats op deze vlucht. Het ticket is niet geboekt.";
@@ -22,7 +31,7 @@ if ($postedToken === $_SESSION['token']){
 //        echo var_dump($newTicketDetails);
 
         $newTicketDetails["deskNumber"] = "";
-        $newTicketDetails["seat"] = rand(50,100);
+        $newTicketDetails["seat"] = randomSeatGenerator();
 
 
 
