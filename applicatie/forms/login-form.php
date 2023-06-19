@@ -6,7 +6,6 @@
 
 function createLoginForm() {
     return <<<LOGINFORM
-                <div class='page-content'>
                     <div class='information-field'>
                         <h2>Inloggen</h2>  
                         <form id="login-form" method="POST" action="./util-pages/login.php">
@@ -16,13 +15,12 @@ function createLoginForm() {
                                 <option value="staff">Medewerker</option>
                             </select><br>
                             <label for="number"> Nummer:</label>
-                            <input type="text" id="number" name="number" pattern="[0-9]{5}" placeholder="123456"><br>
+                            <input type="text" id="number" name="number" pattern="[0-9]{5}" placeholder="12345"><br>
                             <label for="name"> Naam:</label>
                             <input type="text" id="name" name="name" pattern="[A-Za-z]{*}"><br>
                             <input class="button" type="submit"  name="inloggen">
                         </form>
                     </div>
-                </div>
 LOGINFORM;
 }
 

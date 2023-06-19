@@ -6,7 +6,6 @@ function printErrorMessages() {
     $errorText = '';
 
     if (isset($_SESSION["errors"])) {
-        var_dump($_SESSION["errors"]);
 
         if (sizeof($_SESSION["errors"]) > 0) {
             $errorText .= '<div class= "information-field">

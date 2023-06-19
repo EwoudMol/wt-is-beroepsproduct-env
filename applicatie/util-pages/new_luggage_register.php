@@ -15,7 +15,7 @@ require_once '../database/queries.php';
 require_once 'sanitize_form_fields.php';
 
 $postedToken = $_POST['csrf_token'];
-var_dump($_POST);
+
 
 
 if ($postedToken === $_SESSION['token']){

@@ -2,14 +2,13 @@
     --darkgreen: #034754;
     --accentgreen: #97f9be;
     --backgroundgreen: #dafde8;
-    --accentpurple: #bfa2fd;
+    --accentpurple: #9f74fb;
     --tablegreen: #297280;
 }
 
 body{
     display: flex;
     flex-direction: column;
-    /*grid-template-rows: auto auto 1fr;*/
     justify-content: space-between;
     background-color: var(--backgroundgreen);
     font-family: 'Wix Madefor Display', sans-serif;
@@ -89,7 +88,10 @@ a{
     padding: 15px;
 }
 
+
+
 .nav-icon:hover{
+
     border: 5px solid;
 }
 
@@ -178,7 +180,20 @@ table, th, td {
 
 
 
-@media screen and (max-width: 768px) {
+
+
+@media only screen
+    and (max-device-width: 768px)
+    and (max-width: 768px)
+{
+    .information-field {
+        min-width: 50%;
+        max-width: 70%;
+        background-color: hotpink;
+    }
+
+
+
     .page-content {
         display: flex;
         flex-direction: column;
@@ -206,8 +221,10 @@ table, th, td {
     }
 }
 
-
-@media screen and (max-width: 992px) {
+@media only screen
+and (max-device-width: 992px)
+and (max-width: 992px)
+{
     form, fieldset {
         display: flex;
         flex-direction: column;
@@ -218,9 +235,6 @@ table, th, td {
     }
 }
 
-@media screen {
-
-}
 
 
 

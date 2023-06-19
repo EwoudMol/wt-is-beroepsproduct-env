@@ -5,7 +5,7 @@
 require_once '../util-pages/session.php';
 require_once '../database/queries.php';
 require_once 'sanitize_form_fields.php';
-echo var_dump($_POST);
+
 
 $postedToken = $_POST['csrf_token'];
 

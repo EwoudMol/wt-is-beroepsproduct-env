@@ -124,7 +124,6 @@ function registerNewFlight($newFlightDetails){
     $sql = "INSERT INTO [GelreAirport].[dbo].[Vlucht] (vluchtnummer, bestemming, gatecode, max_aantal, max_gewicht_pp, max_totaalgewicht, vertrektijd, maatschappijcode) 
             VALUES ((SELECT MAX(vluchtnummer) FROM [GelreAirport].[dbo].[Vlucht])+1, :destination, :gatecode, :max_passenger,:max_weight_pp,:max_totalweigth, :depart_time, :airline);";
 
-
     $query = $verbinding ->prepare($sql);
     $query->execute([
         ':destination' => $newFlightDetails["destination"],
@@ -213,4 +212,32 @@ echo "/n";
 
 
 }
+//---------------------------------------------------------------------------------------------
+
+function getAllDestinations(){
+    $sql="SELECT luchthavencode FROM [GelreAirport].[dbo].[Luchthaven]";
+    $allDestinations = executeQuery($sql);
+
+    return $allDestinations;
+}
+
+//---------------------------------------------------------------------------------------------
+
+function getAllAirlines(){
+    $sql="SELECT Maatschappijcode FROM [GelreAirport].[dbo].[Maatschappij]";
+    $allDestinations = executeQuery($sql);
+
+    return $allDestinations;
+}
+
+//---------------------------------------------------------------------------------------------
+
+function getAllGates(){
+    $sql="SELECT gatecode FROM [GelreAirport].[dbo].[Gate]";
+    $allDestinations = executeQuery($sql);
+
+    return $allDestinations;
+}
+
+
 

@@ -11,7 +11,6 @@ if(!isset ($_SESSION["role"])) {
 
 
 if (isset($_SESSION["newFlightnumber"])) {
-var_dump($_SESSION["newFlightnumber"]);
 };
 
 require_once './forms/new-flight-form.php';

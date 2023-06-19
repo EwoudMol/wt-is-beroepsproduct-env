@@ -6,7 +6,7 @@ function searchFlightByNumberForm(){
 
 
         <div class='information-field'>
-            <h2>Vlucht zoeken</h2>
+            <h2>Vluchtgegevens</h2>
             <form id="search-flight-number"  action="../util-pages/search-flight-number.php">
                 <label for="flightnumber"> Vluchtnummer:</label>
                 <input type="number" id="flightnumber" name="flightnumber" min="28761" max="50000" step="1" placeholder="12345">
