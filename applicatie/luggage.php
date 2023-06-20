@@ -1,5 +1,5 @@
 <?php
-//TODO de boodschap terug renderen
+
 
 require_once './util-pages/session.php';
 
@@ -12,7 +12,7 @@ require_once './forms/extra-luggage-form.php';
 require_once './content-blocks/Flight-luggage-Info.php';
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
-require_once './content-blocks/error_messages.php';
+require_once './content-blocks/messages.php';
 require_once './database/queries.php';
 
 $homePage = false;
@@ -35,10 +35,10 @@ if(!empty($_SESSION["passengerDetails"])) {
     $_SESSION["maxLuggageLeftPassenger"] = ($luggageDetails['max_gewicht_pp'] - $_SESSION['passengerDetails']['gewicht_bagage']);
 
     $pageContent .= '<div class= "information-field">';
-    $pageContent .= '<h2>Uw persoongegevens</h2>';
+    $pageContent .= '<h2>Passagiersgegevens</h2>';
     $pageContent .= generatePassengerInformation($_SESSION["passengerDetails"]);
  //   $pageContent .= '<section class= "information-field">';
-    $pageContent .= '<h2>Uw Vluchtgegevens</h2>';
+    $pageContent .= '<h2>Vluchtgegevens</h2>';
     $pageContent .= generateSingleFlightInfomation($_SESSION["flightDetails"]);
     $pageContent .= flightLugggageInfo($luggageDetails);
     $pageContent .= '</div>';
@@ -56,17 +56,10 @@ if(!empty($_SESSION["passengerDetails"])) {
 
 }
 
-$pageContent .= printErrorMessages();
+$pageContent .= printMessages();
 
 unset($_SESSION["passengerDetails"]);
 unset($_SESSION["flightDetails"]);
-
-
-if(isset($_SESSION["newLuggageObjectNumber"])) {
- //   var_dump($_SESSION["newLuggageObjectNumber"]);
-    echo "Bagageobject {$_SESSION["newLuggageObjectNumber"]} ingeboekt";
-    unset($_SESSION["newLuggageObjectNumber"]);
-}
 
 include './basic-elements/base-page.php';
 

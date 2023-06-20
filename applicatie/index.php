@@ -1,13 +1,13 @@
 <?php
 require_once './forms/login-form.php';
-require_once './content-blocks/error_messages.php';
+require_once './content-blocks/messages.php';
 
 
     $homePage = true;
     $pageTitle = "Welkom bij Gelre Airport";
     $pageContent = createLoginForm();
 
-    $pageContent .= printErrorMessages();
+    $pageContent .= printMessages();
 
     include "./basic-elements/base-page.php";
 

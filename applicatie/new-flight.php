@@ -1,14 +1,11 @@
 <?php
 require_once './util-pages/session.php';
 
-require_once './content-blocks/error_messages.php';
+require_once './content-blocks/messages.php';
 
 if(!isset ($_SESSION["role"])) {
     header('Location: ../index.php');
 }
-
-
-
 
 if (isset($_SESSION["newFlightnumber"])) {
 };
@@ -19,7 +16,7 @@ require_once './forms/new-flight-form.php';
     $pageTitle = "Nieuwe vlucht";
 
     $pageContent = createNewFlightForm();
-    $pageContent .= printErrorMessages();
+    $pageContent .= printMessages();
 
 include "./basic-elements/base-page.php";
 

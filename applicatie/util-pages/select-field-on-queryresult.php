@@ -1,7 +1,7 @@
 <?php
 
 function generateSelectField($options, $name,$fieldname, $required) {
-    $selectField = '<label for="' . $name . '"> ' . $fieldname . '</label>';
+    $selectField = '<label for="' . $name . '"> ' . ucfirst($fieldname) . '</label>';
     $selectField .= '<select name="' . $name . '">';
     $selectField .= '<option selected value = "">Maak een keuze</option>';
 

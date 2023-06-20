@@ -8,7 +8,7 @@ unset($_SESSION['flightDetails']);
 
 
 if(empty($_GET['flightnumber'])){
-    $_SESSION["errors"][] = "Geef een geldig vluchtnummer";
+    $_SESSION["messages"][] = "Geef een geldig vluchtnummer";
 } else {
 
     $cleanedSource = str_replace("/", "", $_GET["source"]);
@@ -20,7 +20,7 @@ if(empty($_GET['flightnumber'])){
         $_SESSION['flightDetails'] = getFlightInformation($_GET['flightnumber']);
 
         if (empty($_SESSION['flightDetails'])){
-            $_SESSION["errors"][] = "Geen vlucht gevonden";
+            $_SESSION["messages"][] = "Geen vlucht gevonden";
         }
     }
 }

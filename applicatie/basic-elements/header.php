@@ -1,5 +1,5 @@
 <?php
-//TODO dit menu werkt nog niet goed.
+
 $headerMenuItems = [
     [
         'onHomePage' => true,

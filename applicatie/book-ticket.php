@@ -1,5 +1,7 @@
 <?php
-//TODO Renderen van het ticketnummer nog inrichten.
+
+
+
 require_once './util-pages/session.php';
 
 
@@ -10,7 +12,7 @@ if(!isset ($_SESSION["role"])) {
 require_once './forms/search-flight-form.php';
 require_once './forms/ticket-passenger-form.php';
 require_once './content-blocks/remaining-space-flight.php';
-require_once './content-blocks/error_messages.php';
+require_once './content-blocks/messages.php';
 
 
     $homePage = false;
@@ -27,7 +29,7 @@ if(isset($_SESSION["flightDetails"])){
 }
     $pageContent .= '</div>';
     $pageContent .= generateTicketForm();
-    $pageContent .= printErrorMessages();
+    $pageContent .= printMessages();
     $pageContent .= '</div>';
 
 

@@ -178,7 +178,13 @@ table, th, td {
     font-size: large;
 }
 
+.page-links a {
+    color: var(--darkgreen);
+}
 
+.page-links a:hover{
+    color: var(--accentpurple);
+}
 
 
 

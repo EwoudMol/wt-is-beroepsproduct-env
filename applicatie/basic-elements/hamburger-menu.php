@@ -1,7 +1,5 @@
 <?php
 
-//TODO door de opmaak als lijst staan er nu puntjes voor de navigatie icons.
-
 $sideMenuItems = [
     [
         'role' => 'staff',

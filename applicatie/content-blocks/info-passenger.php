@@ -5,6 +5,7 @@
 
 
 function generatePassengerInformation($passengerDetails){
+    var_dump($passengerDetails);
 
 
     return <<<PASSENGERINFO

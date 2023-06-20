@@ -1,4 +1,6 @@
 <?php
+
+require_once './util-pages/sanitize_form_fields.php';
 //TODO deze nog aanpassen aan responsive design.
 //TODO moet hier de balie nog bij?
 
@@ -23,7 +25,6 @@ function generateDepartureTable($flightTimes) {
 
 
     $flightTable = '<section id="page-content-flight">
-        <h2>Overzicht van de vertrekkende vluchten</h2>
         <table>
             <thead>
             <tr>
@@ -38,6 +39,7 @@ function generateDepartureTable($flightTimes) {
    
 
     foreach ($flightTimes as $flightTime){
+        $flightTime["vertrektijd"] = convertDatetimeToApplication($flightTime["vertrektijd"]);
         $flightTable .= "
            
             <tr>

@@ -70,7 +70,7 @@ function getAmountTableRows($table, $displayFlightsFrom){
 //----------------------------------------------------------------------------------------------------
 function getPassengerDetails($passengerNumber){
     global $verbinding;
-   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(*) as aantal,sum(bagage.gewicht) as gewicht_bagage
+   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(bagage.passagiernummer) as aantal, sum(ISNULL(bagage.gewicht,0)) as gewicht_bagage
             FROM [GelreAirport].[dbo].[Passagier] AS passagier
             LEFT JOIN [GelreAirport].[dbo].[Vlucht] AS vlucht ON passagier.vluchtnummer = vlucht.vluchtnummer
             LEFT JOIN [GelreAirport].[dbo].[BagageObject] as bagage ON bagage.passagiernummer = passagier.passagiernummer
@@ -117,7 +117,7 @@ function getRemainingSpaceFlight($flightNumber){
 
 //----------------------------------------------------------------------------------------------------
 //TODO deze afmaken. Komt vanuit het nieuwe ticket. Er moet nog een balie bijgevoegd worden?
-//TODO De tabel incheckenvlucht moet noge gevuld worden.
+//TODO De tabel incheckenvlucht moet nog gevuld worden.
 //TODO inchecken kan bij een specifieke balie. Hiervoor nog query maken.
 function registerNewFlight($newFlightDetails){
     global $verbinding;

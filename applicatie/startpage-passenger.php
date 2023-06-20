@@ -1,9 +1,9 @@
 <?php
 require_once './util-pages/session.php';
-//var_dump($_SESSION);
+
 //TODO hier staat nog een knop inchecken. Ik heb nog geen idee wat deze knop moet doen. Wellicht het vullen van het tijdstip ingecheckt.
 //TODO geen meldingen meer open in W3 Validator
-//TODO vragen aan John of het logischer is om 1 of twee queries te doen in dit geval?
+
 
 if(!isset ($_SESSION["role"])) {
     header('Location: ../index.php');
@@ -12,7 +12,7 @@ if(!isset ($_SESSION["role"])) {
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
 require_once './database/queries.php';
-require_once './content-blocks/error_messages.php';
+require_once './content-blocks/messages.php';
 
 
 
@@ -34,7 +34,7 @@ require_once './content-blocks/error_messages.php';
     $pageContent .= '<h2>Uw Vluchtgegevens</h2>';
     $pageContent .= generateSingleFlightInfomation($flightDetails);
     $pageContent .='<button class="button" type="button" onclick="alert(\'Checkt passagier in\')">Inchecken</button>';
-    $pageContent .= printErrorMessages();
+    $pageContent .= printMessages();
     $pageContent .= '</div>';
 
 include './basic-elements/base-page.php';

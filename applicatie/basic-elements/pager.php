@@ -6,9 +6,8 @@ function generatePager($table, $url, $start, $pagesize, $displayFlightsFrom) {
     $pageback = $start - $pagesize;
     $pageback = $pageback < 0 ? 0 : $pageback;
 
-    //TODO kijken of dit mooier verwerkt kan worden.
-    //TODO opmaak van de pagenummers en ruimte rond de nummers.
-    //TODO kijken of de nummer afgekapt kunnen worden.
+
+
 
     $totalrows = getAmountTableRows($table, $displayFlightsFrom);
     $pagefw = $start + $pagesize;
@@ -16,10 +15,11 @@ function generatePager($table, $url, $start, $pagesize, $displayFlightsFrom) {
 
     $numberOfPages = ceil((int)$totalrows[""] / (int)$pagesize);
 
-
-    $result = "<a href='$url?p=$pagesize&s=$pageback'>previous</a> &nbsp;";
+    $result = '<div class="page-links">';
+    $result .= "<a href='$url?p=$pagesize&s=$pageback'>previous</a> &nbsp;";
     $result .= pageLinks($numberOfPages, $url, $pagesize);
     $result .= "<a href='$url?p=$pagesize&s=$pagefw'>next</a>";
+    $result .= '</div>';
 
     return $result;
 }

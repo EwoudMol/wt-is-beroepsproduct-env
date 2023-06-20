@@ -1,8 +1,9 @@
 <?php
 
 require_once './util-pages/session.php';
+
 //TODO geen opmerkingen in de W3C validator
-//TODO de links van de verschillende pagina's zijn niet leesbaar.
+
 
 require_once './content-blocks/leaving-flights-table.php';
 require_once('./database/queries.php');
