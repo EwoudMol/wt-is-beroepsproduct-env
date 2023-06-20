@@ -3,8 +3,13 @@
 require_once 'db_connectie.php';
 
 //----------------------------------------------------------------------------------------------------
+//Zorgt voor het uitvoeren van queries
 function executeQuery($query) {
     global $verbinding;
+    $query = $verbinding ->prepare($query);
+
+
+
     return $verbinding ->query($query, PDO::FETCH_ASSOC) ->fetchAll();
 }
 //----------------------------------------------------------------------------------------------------
@@ -15,14 +20,14 @@ function getPassengerLoginDetails($passengerNumber) {
             WHERE passagiernummer = :passengerNumber";
 
     $query = $verbinding ->prepare($sql);
-    $query-> execute([':passengerNumber' => intval($passengerNumber)]) ;
+    $query-> execute([':passengerNumber' => intval($passengerNumber)]);
 
     return  $query -> fetch(PDO::FETCH_ASSOC);
 }
 
 //----------------------------------------------------------------------------------------------------
 function getLeavingFlights($displayFlightsFrom, $column, $sort, $pagesize = 10, $skip = 0) {
-//    var_dump($displayFlightsFrom, $column, $sort, $pagesize, $skip);
+
     global $verbinding;
     $displayFlightsFrom = date("Y-m-d H:i", $displayFlightsFrom);
 
@@ -31,7 +36,7 @@ function getLeavingFlights($displayFlightsFrom, $column, $sort, $pagesize = 10, 
 
     $allowedSorts = array('asc', 'desc');
     $sort = in_array($sort, $allowedSorts) ? $sort : 'asc';
- //   var_dump($sort);
+
 
     $pagesize = intval($pagesize);
     $skip = intval($skip);
@@ -70,12 +75,12 @@ function getAmountTableRows($table, $displayFlightsFrom){
 //----------------------------------------------------------------------------------------------------
 function getPassengerDetails($passengerNumber){
     global $verbinding;
-   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, count(bagage.passagiernummer) as aantal, sum(ISNULL(bagage.gewicht,0)) as gewicht_bagage
+   $sql = " SELECT passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer, CONVERT(smalldatetime,passagier.inchecktijdstip) as inchecktijdstip, count(bagage.passagiernummer) as aantal, sum(ISNULL(bagage.gewicht,0)) as gewicht_bagage
             FROM [GelreAirport].[dbo].[Passagier] AS passagier
             LEFT JOIN [GelreAirport].[dbo].[Vlucht] AS vlucht ON passagier.vluchtnummer = vlucht.vluchtnummer
             LEFT JOIN [GelreAirport].[dbo].[BagageObject] as bagage ON bagage.passagiernummer = passagier.passagiernummer
             WHERE passagier.passagiernummer = :passengerNumber
-            GROUP BY passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer";
+            GROUP BY passagier.passagiernummer, passagier.naam, geslacht, vlucht.vluchtnummer,passagier.inchecktijdstip";
 
     $query = $verbinding ->prepare($sql);
     $query -> execute([':passengerNumber' => $passengerNumber]);
@@ -176,12 +181,9 @@ WHERE vlucht.vluchtnummer = :flightNumber;";
 //----------------------------------------------------------------------------------------------------
 function registerNewLuggage($luggageInformation){
     global $verbinding;
-//var_dump($luggageInformation);
-echo "/n";
 
 
     $passengerNumber = intval($luggageInformation["passengerNumber"]);
-//var_dump($passengerNumber);
     $weight = $luggageInformation["weight"];
 
     $objectVolgnummerQuery = "SELECT MAX(objectvolgnummer) FROM [GelreAirport].[dbo].[BagageObject] WHERE passagiernummer = :passengerNumber";
@@ -207,7 +209,6 @@ echo "/n";
 
 
 
- //   var_dump($newLuggageObject);
     return $newLuggageObject;
 
 
@@ -239,5 +240,18 @@ function getAllGates(){
     return $allDestinations;
 }
 
+//---------------------------------------------------------------------------------------------
 
+function registerCheckin($passengerNumber){
+    global $verbinding;
+
+    $sql="UPDATE [GelreAirport].[dbo].[Passagier]
+          SET inchecktijdstip = GETDATE()
+          WHERE passagiernummer = :passengerNumber";
+
+
+    $query = $verbinding->prepare($sql);
+    $query->execute([':passengerNumber' => $passengerNumber]);
+
+}
 

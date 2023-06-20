@@ -13,11 +13,19 @@ require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
 require_once './database/queries.php';
 require_once './content-blocks/messages.php';
+require_once './forms/check-in-button.php';
 
 
 
 
     $passengerDetails = getPassengerDetails($_SESSION['passengerNumber']);
+
+    if(!is_null($passengerDetails["inchecktijdstip"])) {
+        $passengerDetails["inchecktijdstip"] = convertDatetimeToApplication($passengerDetails["inchecktijdstip"]);
+    };
+
+
+
     $flightDetails = getFlightInformation($passengerDetails['vluchtnummer']);
 
     $homePage = false;
@@ -33,7 +41,13 @@ require_once './content-blocks/messages.php';
     $pageContent .= '<div class= "information-field">';
     $pageContent .= '<h2>Uw Vluchtgegevens</h2>';
     $pageContent .= generateSingleFlightInfomation($flightDetails);
-    $pageContent .='<button class="button" type="button" onclick="alert(\'Checkt passagier in\')">Inchecken</button>';
+
+if (!empty($passengerDetails)) {
+    if (is_null($passengerDetails["inchecktijdstip"])) {
+        $pageContent .= createCheckinButton($passengerDetails["passagiernummer"]);
+    }
+}
+
     $pageContent .= printMessages();
     $pageContent .= '</div>';
 
