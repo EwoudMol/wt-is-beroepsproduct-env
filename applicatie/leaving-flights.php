@@ -1,12 +1,8 @@
 <?php
 
 require_once './util-pages/session.php';
-
-//TODO geen opmerkingen in de W3C validator
-
-
 require_once './content-blocks/leaving-flights-table.php';
-require_once('./database/queries.php');
+require_once './database/queries.php';
 require_once './basic-elements/pager.php';
 
     date_default_timezone_set("Europe/Amsterdam");
@@ -28,5 +24,4 @@ require_once './basic-elements/pager.php';
 
 include "./basic-elements/base-page.php";
 
-?>
 

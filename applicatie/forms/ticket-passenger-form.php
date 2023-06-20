@@ -1,7 +1,6 @@
 <?php
 
-function generateTicketForm()
-{
+function generateTicketForm() {
     return <<<TICKETFORM
 
 <div class='information-field'>
@@ -14,7 +13,6 @@ function generateTicketForm()
                 <input type="number" id="flightnumber1" name="flightnumber1" min="28761" max="50000" step="1" placeholder="12345" required><br>
                 <label>Geslacht:</label>
                 <div id="gender-choices">
-                
                     <input type="radio" id="genderM" name="gender" value="M" required>
                     <label for="genderM">Man</label>
                     <input type="radio" id="genderF" name="gender" value="F">
@@ -23,7 +21,6 @@ function generateTicketForm()
                     <label for="genderX">Anders</label>
                 </div>
                 <input class="button" type="submit" value="Boek ticket">
-
             </form>
         </div>
 TICKETFORM;

@@ -1,5 +1,7 @@
 <?php
 
+//De menu items in de header zijn alleen zichtbaar als de gebruiker niet is ingelogd.
+
 $headerMenuItems = [
     [
         'onHomePage' => true,
@@ -21,7 +23,6 @@ $headerMenuItems = [
     ]
 ];
 
-
 function createHeaderMenu() {
     global $headerMenuItems;
     $isActivePageHomePage = ($_SERVER["REQUEST_URI"] === "/index.php"||$_SERVER["REQUEST_URI"] === "/" );
@@ -37,7 +38,6 @@ function createHeaderMenu() {
                 <img src="' . $headerMenuItem["img"]["src"] . '" alt="' . $headerMenuItem["img"]["alt"] . '">
                 <p>' . $headerMenuItem["text"] . '</p>
             </a>';
-
         }
     }
 
@@ -48,7 +48,6 @@ function createHeaderMenu() {
     return $headerMenu;
 }
 
-?>
 
 
 

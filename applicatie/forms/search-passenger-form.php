@@ -3,9 +3,7 @@
 require_once './content-blocks/info-passenger.php';
 function searchPassengerByNumberForm(){
 
-
-  return <<<SEARCHPASSENGERFORM
-    
+    return <<<SEARCHPASSENGERFORM
     <div class='information-field'>
         <h2>Persoongegevens</h2>
         <form id="search-passenger-number" action="../util-pages/search-passenger-number.php">

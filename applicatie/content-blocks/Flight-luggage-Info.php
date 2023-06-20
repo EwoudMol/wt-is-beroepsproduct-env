@@ -1,11 +1,8 @@
 <?php
-//TODO voor passagiers geen foutmelding in W3 validator.
 
-function flightLugggageInfo($luggageDetails)
-{
+function flightLugggageInfo($luggageDetails) {
+
     return <<<FLIGHTLUGGAGEINFO
-
-  
                <h2>Bagage gegevens</h2>
                 <div class="actual-information">
                     <p>Vluchtnummer: {$luggageDetails['vluchtnummer']}</p>

@@ -1,14 +1,8 @@
 <?php
 
-
-
-
-
 function extraLuggageForm() {
 
     return <<<EXTRALUGGAGEFORM
-
-
     <div class='information-field' >
         <h2 > Extra koffer </h2 >
         <form method="POST" action="../util-pages/new_luggage_register.php">
@@ -22,7 +16,5 @@ function extraLuggageForm() {
         </form >
     </div >
  EXTRALUGGAGEFORM;
+}
 
-
-    }
-    ?>

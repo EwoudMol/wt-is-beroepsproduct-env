@@ -1,37 +1,24 @@
 <?php
 require_once './util-pages/session.php';
-
-//TODO hier staat nog een knop inchecken. Ik heb nog geen idee wat deze knop moet doen. Wellicht het vullen van het tijdstip ingecheckt.
-//TODO geen meldingen meer open in W3 Validator
-
-
-if(!isset ($_SESSION["role"])) {
-    header('Location: ../index.php');
-}
-
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
 require_once './database/queries.php';
 require_once './content-blocks/messages.php';
 require_once './forms/check-in-button.php';
 
-
+if(!isset ($_SESSION["role"])) {
+    header('Location: ../index.php');
+}
 
 
     $passengerDetails = getPassengerDetails($_SESSION['passengerNumber']);
-
-    if(!is_null($passengerDetails["inchecktijdstip"])) {
-        $passengerDetails["inchecktijdstip"] = convertDatetimeToApplication($passengerDetails["inchecktijdstip"]);
-    };
-
-
-
+    $homePage = false;
+    $pageTitle = 'Welkom '.$passengerDetails['naam'];
     $flightDetails = getFlightInformation($passengerDetails['vluchtnummer']);
 
-    $homePage = false;
-    $namePassenger = $passengerDetails['naam'];
-    $pageTitle = 'Welkom '.$namePassenger;
-
+if(!is_null($passengerDetails["inchecktijdstip"])) {
+    $passengerDetails["inchecktijdstip"] = convertDatetimeToApplication($passengerDetails["inchecktijdstip"]);
+};
 
     $pageContent = '<div class= "information-field">';
     $pageContent .= '<h2>Uw persoongegevens</h2>';
@@ -52,6 +39,3 @@ if (!empty($passengerDetails)) {
     $pageContent .= '</div>';
 
 include './basic-elements/base-page.php';
-
-
-?>

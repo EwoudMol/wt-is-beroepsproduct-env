@@ -1,5 +1,7 @@
 <?php
 
+//Op basis van de rol van de ingelogde persoon wordt het inhoud van het menu bepaald.
+
 $sideMenuItems = [
     [
         'role' => 'staff',
@@ -89,15 +91,11 @@ function createSideMenu($role) {
         }
     }
 
-    $sideMenu .= '     </nav>
-                </aside>
-            </div>';
-
+    $sideMenu .= '</nav>
+            </aside>
+        </div>';
 
     return $sideMenu;
 }
 
 
-
-
-?>

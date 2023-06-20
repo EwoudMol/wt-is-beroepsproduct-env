@@ -2,10 +2,8 @@
 
 require_once './util-pages/sanitize_form_fields.php';
 
-
 function generateSingleFlightInfomation($flightDetails) {
     $flightDetails['vertrektijd'] = convertDatetimeToApplication($flightDetails['vertrektijd']);
-
 
     return <<<SINGLEFLIGHTINFORMATION
         <div class="actual-information">

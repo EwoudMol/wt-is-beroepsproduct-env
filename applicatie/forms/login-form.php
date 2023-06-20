@@ -1,8 +1,6 @@
 <?php
 
-//TODO het naam veld nog omzetten naar password. Wel in de documentatie opnemen dat het password niet gehashed in de database staat.
-
-
+//TODO Opmerking over de beveiling en password in de documentatie.
 
 function createLoginForm() {
     return <<<LOGINFORM

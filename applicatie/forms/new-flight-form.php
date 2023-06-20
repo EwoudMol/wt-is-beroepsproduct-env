@@ -17,10 +17,8 @@ function createNewFlightForm() {
     global $selectAllAirlines;
 
     return <<<NEWFLIGHTFORM
-        
             <div class='information-field'>
                     <h3>Vul onderstaande gegevens in voor nieuwe vlucht:</h3>
-        
                     <form method="POST" action="../util-pages/new_flight_register.php">
                         <input type="hidden" name="csrf_token" value= {$_SESSION['token']}>
                         $selectAllDestinationField

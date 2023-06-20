@@ -1,9 +1,9 @@
 <?php
 
 require_once './util-pages/sanitize_form_fields.php';
-//TODO deze nog aanpassen aan responsive design.
-//TODO moet hier de balie nog bij?
 
+//-----------------------------------------------------------------------------------------
+//In deze functie zijn de kolomkoppen dynamisch gemaakt zodat het pijltje reageert op de sorteervolgorde.
 function generateColumnHead($column, $sortColumn, $sortOrder){
     $headColumn = $column;
     if($column === $sortColumn) {
@@ -15,14 +15,13 @@ function generateColumnHead($column, $sortColumn, $sortOrder){
     }
     return $headColumn;
 }
-
-
+//-----------------------------------------------------------------------------------------
+//In deze functie wordt de vertrek tabel gemaakt. Hier wordt eerst bepaald op welke kolom er gesorteerd is,
+//als deze niet bekend is, wordt er een standaard sorteervolgorde toegekend.
 function generateDepartureTable($flightTimes) {
     $sortColumn = isset($_GET['column']) ? $_GET['column'] : 'vertrektijd';
     $sortOrder = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
     $sortNew = $sortOrder === 'asc' ? 'desc' : 'asc';
-
-
 
     $flightTable = '<section id="page-content-flight">
         <table>
@@ -36,21 +35,18 @@ function generateDepartureTable($flightTimes) {
             </tr>
             </thead>
             <tbody>';
-   
 
     foreach ($flightTimes as $flightTime){
         $flightTime["vertrektijd"] = convertDatetimeToApplication($flightTime["vertrektijd"]);
-        $flightTable .= "
-           
+        $flightTable .= "         
             <tr>
-     
                 <td class=\"prio-1\">" . $flightTime["vertrektijd"] . "</td>
                 <td class=\"prio-1\">" . $flightTime["vluchtnummer"] . "</td>
                 <td class=\"prio-1\">" . $flightTime["gatecode"] . "</td>
                 <td class=\"prio-1\">" . $flightTime["bestemming"] . "</td>
                 <td class=\"prio-3\">" . $flightTime["maatschappij"] . "</td>
             </tr>";
-};
+    };
 
     $flightTable .= "
             </tbody>

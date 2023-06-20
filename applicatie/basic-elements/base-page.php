@@ -1,4 +1,6 @@
 <?php
+//Dit is de basis pagina met algemene gegevens die voor elke pagina gebruikt wordt.
+//Op de andere pagina's wordt de pagecontent gevuld.
 
     require_once 'hamburger-menu.php';
     require_once 'header.php';
@@ -6,16 +8,13 @@
     $headerMenu = '';
     $sideMenu = '';
 
-
     if(!isset ($_SESSION["role"])) {
         $headerMenu = createHeaderMenu();
     } else {
         $sideMenu = createSideMenu($_SESSION["role"]);
     }
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
