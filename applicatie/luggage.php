@@ -4,7 +4,7 @@
 require_once './util-pages/session.php';
 require_once './forms/search-passenger-form.php';
 require_once './forms/extra-luggage-form.php';
-require_once './content-blocks/Flight-luggage-Info.php';
+require_once './content-blocks/flight-luggage-Info.php';
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
 require_once './content-blocks/messages.php';

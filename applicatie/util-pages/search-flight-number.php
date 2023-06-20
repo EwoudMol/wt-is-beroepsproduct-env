@@ -6,18 +6,24 @@ require_once '../database/queries.php';
 unset($_SESSION['passengerDetails']);
 unset($_SESSION['flightDetails']);
 
+$cleanedSource = str_replace("/", "", $_GET["source"]);
 
 if(empty($_GET['flightnumber'])){
     $_SESSION["messages"][] = "Geef een geldig vluchtnummer";
 } else {
 
-    $cleanedSource = str_replace("/", "", $_GET["source"]);
-
     if ($cleanedSource === "book-ticket.php") {
-        $_SESSION['flightDetails'] = getRemainingSpaceFlight($_GET['flightnumber']);
-
+        try {
+            $_SESSION['flightDetails'] = getRemainingSpaceFlight($_GET['flightnumber']);
+        }catch (Exception $error) {
+            $_SESSION['messages'] = "Het ophalen van gegevens is fout gegaan";
+        }
     } else {
-        $_SESSION['flightDetails'] = getFlightInformation($_GET['flightnumber']);
+        try {
+            $_SESSION['flightDetails'] = getFlightInformation($_GET['flightnumber']);
+        }catch (Exception $error) {
+            $_SESSION['messages'] = "Het ophalen van vluchtgegevens is fout gegaan";
+        }
 
         if (empty($_SESSION['flightDetails'])){
             $_SESSION["messages"][] = "Geen vlucht gevonden";
@@ -25,5 +31,5 @@ if(empty($_GET['flightnumber'])){
     }
 }
 
-header("location: ../{$_GET["source"]}");
+header("location: ../{$cleanedSource}");
 

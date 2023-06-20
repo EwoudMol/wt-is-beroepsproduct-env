@@ -1,4 +1,7 @@
 <?php
+
+//TODO opknippen in meerdere functies?
+
     require_once '../util-pages/session.php';
     require_once '../database/queries.php';
     require_once 'sanitize_form_fields.php';
@@ -19,30 +22,31 @@ if ($_POST["user"] === "staff" && $name === "test" && $number === '98765'){
     header('Location: ../startpage-staff.php');
 
 } elseif($_POST["user"] === "passenger") {
-    $result = getPassengerLoginDetails($number);
 
+    try {
+        $result = getPassengerLoginDetails($number);
 
-    if($result["passagiernummer"] === $number && strtolower($result["naam"]) === $name ) {
-        $_SESSION['role'] = "passenger";
-        $_SESSION['passengerNumber'] = $number;
-        $_SESSION['name'] = $name;
+        if ($result["passagiernummer"] === $number && strtolower($result["naam"]) === $name) {
+            $_SESSION['role'] = "passenger";
+            $_SESSION['passengerNumber'] = $number;
+            $_SESSION['name'] = $name;
 
-        activateCsrfToken();
+            activateCsrfToken();
 
-        header('Location: ../startpage-passenger.php');
-    } else {
-        $_SESSION["messages"][]= "Geef geldige login gegevens";
-        header('Location: ../index.php');
+            header('Location: ../startpage-passenger.php');
+        } else {
+            $_SESSION["messages"][] = "Geef geldige login gegevens";
 
+        }
+    } catch (Exception $error) {
+        $_SESSION["messages"]["checkin"] = "Er is iets fout gegaan met de database, probeer het nog eens";
     }
 
 } else {
     $_SESSION["messages"][]= "Geef geldige login gegevens";
-    header('Location: ../index.php');
-
-
-
 }
+
+header('Location: ../index.php');
 
 
 function activateCSRFToken() {

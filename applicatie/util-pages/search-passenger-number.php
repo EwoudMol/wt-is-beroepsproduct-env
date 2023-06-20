@@ -15,7 +15,11 @@ if(empty($_GET['passengernumber'])){
     $_SESSION["messages"][] = "Geef een geldig passagiersnummer";
 } else {
 
-    $_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
+    try {
+        $_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
+    }catch(Exception $error) {
+        $_SESSION['messages'] = "Het ophalen van passagiersgegevens is fout gegaan";
+    }
 
     if (!empty($_SESSION["passengerDetails"])) {
         $vluchtnummer = $_SESSION["passengerDetails"]["vluchtnummer"];

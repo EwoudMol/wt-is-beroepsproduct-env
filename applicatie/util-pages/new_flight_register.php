@@ -7,13 +7,17 @@ require_once 'sanitize_form_fields.php';
 $postedToken = $_POST['csrf_token'];
 
 if ($postedToken === $_SESSION['token']){
-    $newFlight = sanatizeDataInput($_POST);
+    try {
+        $newFlight = sanatizeDataInput($_POST);
+        $newFlight["depart_time"] = convertDatetimeToQuery($newFlight["depart_time"]);
 
-    $newFlight["depart_time"] = convertDatetimeToQuery($newFlight["depart_time"]);
+        $newFlightnumber = registerNewFlight($newFlight);
 
-    $newFlightnumber = registerNewFlight($newFlight);
+        $_SESSION["messages"]["newFlightnumber"] = "Vlucht {$newFlightnumber} is opgenomen in het systeem";
 
-    $_SESSION["messages"]["newFlightnumber"] = "Vlucht {$newFlightnumber} is opgenomen in het systeem";
+    }catch (Exception $error){
+        $_SESSION["messages"]["newFlightnumber"] = "Er is iets fout gegaan met inboeken van de vlucht probeer het opnieuw";
+    }
 
     header('location: ../new-flight.php');
 

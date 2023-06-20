@@ -24,6 +24,8 @@ function getPassengerLoginDetails($passengerNumber) {
 }
 
 //----------------------------------------------------------------------------------------------------
+//In deze query wordt afhankelijk van de sorteer keuze de query aangemaakt. Op deze manier omdat de ORDER BY
+//niet via een prepared statement ingeladen wordt.
 function getLeavingFlights($displayFlightsFrom, $column, $sort, $pagesize = 10, $skip = 0) {
 
     global $verbinding;
@@ -34,7 +36,6 @@ function getLeavingFlights($displayFlightsFrom, $column, $sort, $pagesize = 10, 
 
     $allowedSorts = array('asc', 'desc');
     $sort = in_array($sort, $allowedSorts) ? $sort : 'asc';
-
 
     $pagesize = intval($pagesize);
     $skip = intval($skip);
@@ -209,7 +210,7 @@ function registerNewLuggage($luggageInformation){
     ]);
 
     $newLuggageObject = $verbinding->query("  SELECT MAX(objectvolgnummer) luggageNumber
-                                                  FROM [GelreAirport].[dbo].[BagageObject] 
+                                                  FROM [GelreAirport].[dbo].[BagageObjectblaat] 
                                                   WHERE passagiernummer = {$passengerNumber};") ->fetchColumn();
 
     return $newLuggageObject;

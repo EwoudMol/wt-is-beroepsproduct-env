@@ -121,8 +121,6 @@ form input {
     border: none;
 }
 
-
-
 .button{
     margin-top: 10px;
     padding: 3px 0;
@@ -150,7 +148,6 @@ form input {
 }
 
 table{
-
     table-layout: fixed;
     margin: 25px;
     width: 80%;
@@ -187,7 +184,6 @@ table, th, td {
 }
 
 
-
 @media only screen
     and (max-device-width: 768px)
     and (max-width: 768px)
@@ -197,8 +193,6 @@ table, th, td {
         max-width: 70%;
         background-color: hotpink;
     }
-
-
 
     .page-content {
         display: flex;
