@@ -4,11 +4,12 @@ require_once 'db_connectie.php';
 
 //----------------------------------------------------------------------------------------------------
 //Zorgt voor het uitvoeren van queries
-function executeQuery($query) {
-    global $verbinding;
-    $query = $verbinding ->prepare($query);
+    function executeQuery($query) {
+        global $verbinding;
+        $result = $verbinding ->prepare($query);
+        $result -> execute();
 
-    return $verbinding ->query($query, PDO::FETCH_ASSOC) ->fetchAll();
+        return $result ->fetchAll(PDO::FETCH_ASSOC);
 }
 //----------------------------------------------------------------------------------------------------
 function getPassengerLoginDetails($passengerNumber) {

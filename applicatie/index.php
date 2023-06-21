@@ -1,5 +1,5 @@
 <?php
-
+require_once './util-pages/session.php';
 require_once './forms/login-form.php';
 require_once './content-blocks/messages.php';
 
@@ -10,7 +10,7 @@ require_once './content-blocks/messages.php';
 
     include "./basic-elements/base-page.php";
 
-
+var_dump($_SESSION);
 
 
 

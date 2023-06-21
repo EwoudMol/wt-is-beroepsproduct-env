@@ -1,5 +1,5 @@
 <?php
-//TODO HELP!!
+
     require_once './database/queries.php';
     require_once './util-pages/select-field-on-queryresult.php';
 
@@ -31,7 +31,7 @@ function createNewFlightForm() {
                         <input type="number" id="max_totalweigth" name="max_totalweigth" step="0.01" min="0" max="9999.99" required>
                         $selectAllAirlines
                          <label for="depart_time">Vertrektijd</label>
-                        <input type="datetime-local" id="depart_time" name="depart_time">
+                        <input type="datetime-local" id="depart_time" name="depart_time" required>
                         <input class="button" type="submit" value="Vlucht registreren">
                     </form>
                 </div>

@@ -13,6 +13,7 @@ if(!isset ($_SESSION["role"])) {
     $pageContent = createNewFlightForm();
     $pageContent .= printMessages();
 
+
 include "./basic-elements/base-page.php";
 
 

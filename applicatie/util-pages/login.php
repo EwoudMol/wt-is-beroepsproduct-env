@@ -3,57 +3,64 @@
 //TODO opknippen in meerdere functies?
 
     require_once '../util-pages/session.php';
+    require_once '../util-pages/validate-form-fields.php';
     require_once '../database/queries.php';
     require_once 'sanitize_form_fields.php';
 
-    $name = htmlspecialchars(strtolower($_POST["name"]));
-    $number = htmlspecialchars($_POST["number"]);
+
+    $sanitizedInput = sanatizeDataInput($_POST);
     $_SESSION["messages"] = [];
 
+$requiredFormFields = ["user", "number","name"];
+$numericFormFields = ["number"];
 
 
-if ($_POST["user"] === "staff" && $name === "test" && $number === '98765'){
-    $_SESSION['role'] = "staff";
-    $_SESSION['staffnumber'] = $_POST["$number"];
-    $_SESSION['name'] = $_POST["name"];
 
-    activateCsrfToken();
+if (requiredFieldsFilled($_POST, $requiredFormFields) && validateNumericField($_POST, $numericFormFields)) {
 
-    header('Location: ../startpage-staff.php');
+    if ($sanitizedInput["user"] === "staff" && $sanitizedInput["name"] === "test" && $sanitizedInput["number"] === '98765') {
+        $_SESSION['role'] = "staff";
+        $_SESSION['staffnumber'] = $sanitizedInput["number"];
+        $_SESSION['name'] = $sanitizedInput["name"];
 
-} elseif($_POST["user"] === "passenger") {
+        activateCsrfToken();
 
-    try {
-        $result = getPassengerLoginDetails($number);
+      header('Location: ../startpage-staff.php');
 
-        if ($result["passagiernummer"] === $number && strtolower($result["naam"]) === $name) {
-            $_SESSION['role'] = "passenger";
-            $_SESSION['passengerNumber'] = $number;
-            $_SESSION['name'] = $name;
+    } elseif ($sanitizedInput["user"] === "passenger") {
+        var_dump("en hiero");
+        try {
+            $result = getPassengerLoginDetails($sanitizedInput["number"]);
 
-            activateCsrfToken();
+            if ($result["passagiernummer"] === $sanitizedInput["number"] && strtolower($result["naam"]) === $sanitizedInput["name"]) {
+                $_SESSION['role'] = "passenger";
+                $_SESSION['passengerNumber'] = $sanitizedInput["number"];
+                $_SESSION['name'] = $sanitizedInput["name"];
 
-            header('Location: ../startpage-passenger.php');
-        } else {
-            $_SESSION["messages"][] = "Geef geldige login gegevens";
+                activateCsrfToken();
 
+               header('Location: ../startpage-passenger.php');
+            } else {
+                $_SESSION["messages"][] = "Geef geldige login gegevens";
+
+            }
+        } catch (Exception $error) {
+            $_SESSION["messages"]["checkin"] = "Er is iets fout gegaan met de database, probeer het nog eens";
         }
-    } catch (Exception $error) {
-        $_SESSION["messages"]["checkin"] = "Er is iets fout gegaan met de database, probeer het nog eens";
-    }
 
-} else {
-    $_SESSION["messages"][]= "Geef geldige login gegevens";
+    } else {
+        $_SESSION["messages"][] = "Geef geldige login gegevens";
+
+        header('Location: ../index.php');
+    }
 }
 
-header('Location: ../index.php');
 
-
-function activateCSRFToken() {
-    if (empty($_SESSION['token'])) {
-        $_SESSION['token'] = bin2hex(random_bytes(32));
+    function activateCSRFToken() {
+        if (empty($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
     }
-};
 
 
 

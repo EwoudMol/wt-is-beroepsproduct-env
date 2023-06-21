@@ -1,7 +1,6 @@
 <?php
 
 //TODO geen opmerkingen in de W3C validator
-//TODO alle form validatie nog aan de server kant.
 
 
 require_once '../util-pages/session.php';
