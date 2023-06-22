@@ -1,5 +1,6 @@
 <?php
 require_once './util-pages/session.php';
+
 require_once './content-blocks/info-passenger.php';
 require_once './content-blocks/info-single-flight.php';
 require_once './database/queries.php';
@@ -9,7 +10,6 @@ require_once './forms/check-in-button.php';
 if(!isset ($_SESSION["role"])) {
     header('Location: ../index.php');
 }
-
 
     $passengerDetails = getPassengerDetails($_SESSION['passengerNumber']);
     $homePage = false;

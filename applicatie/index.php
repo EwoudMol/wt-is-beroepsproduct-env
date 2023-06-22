@@ -10,7 +10,6 @@ require_once './content-blocks/messages.php';
 
     include "./basic-elements/base-page.php";
 
-var_dump($_SESSION);
 
 
 

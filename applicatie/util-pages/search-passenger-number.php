@@ -1,33 +1,19 @@
 <?php
 
-//TODO geen opmerkingen in de W3C validator
+require_once './util-pages/session.php';
+require_once './database/queries.php';
 
 
-require_once '../util-pages/session.php';
-require_once '../database/queries.php';
 
-unset($_SESSION['passengerDetails']);
-unset($_SESSION['flightDetails']);
-
-
-if(empty($_GET['passengernumber'])){
-    $_SESSION["messages"][] = "Geef een geldig passagiersnummer";
-} else {
-
+function retrievePassengerInformation($passengerNumber) {
     try {
-        $_SESSION['passengerDetails'] = getPassengerDetails($_GET['passengernumber']);
+        return getPassengerDetails($_GET['passengernumber']);
     }catch(Exception $error) {
-        $_SESSION['messages'] = "Het ophalen van passagiersgegevens is fout gegaan";
+        $_SESSION['messages']["searchPassengerNumber"] = "Het ophalen van passagiersgegevens is fout gegaan";
     }
+}
 
-    if (!empty($_SESSION["passengerDetails"])) {
-        $vluchtnummer = $_SESSION["passengerDetails"]["vluchtnummer"];
-        $_SESSION['flightDetails'] = getFlightInformation($vluchtnummer);
 
-    }else {
-            $_SESSION["messages"][] = "Geen passagier gevonden";
-        }
-    }
 
-header("location: ..{$_GET["sourcePassengerForm"]}");
+
 

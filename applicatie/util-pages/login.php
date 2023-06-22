@@ -28,7 +28,6 @@ if (requiredFieldsFilled($_POST, $requiredFormFields) && validateNumericField($_
       header('Location: ../startpage-staff.php');
 
     } elseif ($sanitizedInput["user"] === "passenger") {
-        var_dump("en hiero");
         try {
             $result = getPassengerLoginDetails($sanitizedInput["number"]);
 

@@ -9,6 +9,7 @@ function createLoginForm() {
                         <form id="login-form" method="POST" action="./util-pages/login.php">
                             <label for="user">Soort gebruiker:</label>
                             <select id="user" name="user" required>
+                                <option value="" disabled selected>Selecteer een optie</option>
                                 <option value="passenger">Passagier</option>
                                 <option value="staff">Medewerker</option>
                             </select><br>

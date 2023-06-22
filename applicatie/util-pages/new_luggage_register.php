@@ -18,13 +18,15 @@ if ($postedToken === $_SESSION['token']){
             $extraLuggage = ["passengerNumber" => $newLuggage["passengerNumber"], "weight" => floatval($newLuggage["weight-extra-luggage"])];
 
             if (floatval($newLuggage["max_luggage_left"]) < $extraLuggage["weight"]) {
-                $_SESSION["messages"][] = "Bagage is te zwaar en kan niet bijgeboekt worden";
+                $_SESSION["messages"][] = "Totale bagage is te zwaar en kan niet bijgeboekt worden";
             } else {
                 $newLuggageObjectNumber = registerNewLuggage($extraLuggage);
                 $_SESSION["messages"]["newLuggage"] = "De koffer is opgenomen in het systeem";
             }
         } catch (Exception $error) {
             $_SESSION["messages"]["newLuggage"] = "Er is iets fout gegaan bij het inboeken van de extra bagage.";
+            var_dump($error);
+
         }
     }
 

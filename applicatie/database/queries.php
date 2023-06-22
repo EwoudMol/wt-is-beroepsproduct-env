@@ -211,7 +211,7 @@ function registerNewLuggage($luggageInformation){
     ]);
 
     $newLuggageObject = $verbinding->query("  SELECT MAX(objectvolgnummer) luggageNumber
-                                                  FROM [GelreAirport].[dbo].[BagageObjectblaat] 
+                                                  FROM [GelreAirport].[dbo].[BagageObject] 
                                                   WHERE passagiernummer = {$passengerNumber};") ->fetchColumn();
 
     return $newLuggageObject;

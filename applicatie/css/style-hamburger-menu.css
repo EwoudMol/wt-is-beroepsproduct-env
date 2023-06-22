@@ -79,6 +79,7 @@
     padding: 0.5rem 1rem;
     padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
     background-color: var(--foreground);
+    padding-bottom: 60px ;
     color: var(--background);
     position: absolute;
     inset: 0;

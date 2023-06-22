@@ -22,16 +22,17 @@ if ($postedToken === $_SESSION['token']){
         try {
             if ($_SESSION["remaining_places"] < 1) {
                 $_SESSION["messages"][] = "Er is geen plaats op deze vlucht. Het ticket is niet geboekt.";
+            } else {
+
+                $newTicketDetails = sanatizeDataInput($sanitizedInput);
+
+                $newTicketDetails["deskNumber"] = "";
+                $newTicketDetails["seat"] = randomSeatGenerator();
+
+                $newPassengernumber = registerNewTicket($newTicketDetails);
+
+                $_SESSION["messages"]["newTicketnumber"] = "Voor passagier {$newPassengernumber} is het ticket opgenomen in het systeem";
             }
-
-            $newTicketDetails = sanatizeDataInput($sanitizedInput);
-
-            $newTicketDetails["deskNumber"] = "";
-            $newTicketDetails["seat"] = randomSeatGenerator();
-
-            $newPassengernumber = registerNewTicket($newTicketDetails);
-
-            $_SESSION["messages"]["newTicketnumber"] = "Voor passagier {$newPassengernumber} is het ticket opgenomen in het systeem";
         } catch (Exception $error) {
             $_SESSION["messages"]["newTicketnumber"] = "Er is iets misgegaan bij het boeken van het ticket";
         }
