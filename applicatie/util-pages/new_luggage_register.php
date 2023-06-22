@@ -8,13 +8,12 @@ require_once 'sanitize_form_fields.php';
 $postedToken = $_POST['csrf_token'];
 $requiredFormFields = ["weight-extra-luggage"];
 $numericFormFields = ["weight-extra-luggage"];
-$sanitizedInput = sanatizeDataInput($_POST);
+$newLuggage = sanatizeDataInput($_POST);
 
 
 if ($postedToken === $_SESSION['token']){
-    if (requiredFieldsFilled($sanitizedInput, $requiredFormFields) && validateNumericField($sanitizedInput, $numericFormFields)) {
+    if (requiredFieldsFilled($newLuggage, $requiredFormFields) && validateNumericField($newLuggage, $numericFormFields)) {
         try {
-            $newLuggage = sanatizeDataInput($sanitizedInput);
             $extraLuggage = ["passengerNumber" => $newLuggage["passengerNumber"], "weight" => floatval($newLuggage["weight-extra-luggage"])];
 
             if (floatval($newLuggage["max_luggage_left"]) < $extraLuggage["weight"]) {
@@ -26,12 +25,10 @@ if ($postedToken === $_SESSION['token']){
         } catch (Exception $error) {
             $_SESSION["messages"]["newLuggage"] = "Er is iets fout gegaan bij het inboeken van de extra bagage.";
             var_dump($error);
-
         }
     }
 
-    unset($_SESSION["passengerDetails"]);
-    unset($_SESSION["flightDetails"]);
+
     header('location: ../luggage.php');
 
 } else {

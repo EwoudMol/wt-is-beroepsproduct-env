@@ -6,8 +6,7 @@ function printMessages() {
     $text = '';
 
     if (isset($_SESSION["messages"])) {
-        var_dump($_SESSION);
-        var_dump(sizeof($_SESSION["messages"]));
+
         if (sizeof($_SESSION["messages"]) > 0) {
             $text .= '<div class= "information-field">
                        <h2>Meldingen</h2>';

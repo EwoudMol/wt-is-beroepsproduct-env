@@ -6,9 +6,10 @@ require_once '../util-pages/sanitize_form_fields.php';
 require_once '../database/queries.php';
 
 $postedToken = $_POST['csrf_token'];
-$sanitizedInput = sanatizeDataInput($_POST);
+$newTicketDetails = sanatizeDataInput($_POST);
 $requiredFormFields = ["namePassenger", "flightnumber1","gender"];
 $numericFormFields = ["flightnumber1"];
+$remainingSpace = getRemainingSpaceFlight($_POST["flightnumber1"]);
 
 function randomSeatGenerator(){
     $letters =['A', 'B', 'C', 'D', 'E', 'F','G','H','I'];
@@ -18,13 +19,11 @@ function randomSeatGenerator(){
 }
 
 if ($postedToken === $_SESSION['token']){
-    if (requiredFieldsFilled($sanitizedInput, $requiredFormFields) && validateNumericField($_POST, $numericFormFields)) {
+    if (requiredFieldsFilled($newTicketDetails, $requiredFormFields) && validateNumericField($_POST, $numericFormFields)) {
         try {
-            if ($_SESSION["remaining_places"] < 1) {
+            if ($remainingSpace['remaining_passengers'] <1){
                 $_SESSION["messages"][] = "Er is geen plaats op deze vlucht. Het ticket is niet geboekt.";
             } else {
-
-                $newTicketDetails = sanatizeDataInput($sanitizedInput);
 
                 $newTicketDetails["deskNumber"] = "";
                 $newTicketDetails["seat"] = randomSeatGenerator();

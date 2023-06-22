@@ -16,7 +16,7 @@ if(!isset($_SESSION["role"])) {
 }
     if(isset($_SERVER["QUERY_STRING"])) {
         $searchedNumber = getArrayFromURL($_SERVER["QUERY_STRING"]);
-        var_dump($searchedNumber);
+
     }
 
 
@@ -35,15 +35,15 @@ if (!empty($searchedNumber["passengernumber"])) {
 
 if (!empty($searchedNumber["flightnumber"]) || !empty($passengerDetails["vluchtnummer"])) {
     $flightnumber = (!empty($searchedNumber["flightnumber"])) ? $searchedNumber["flightnumber"] : $passengerDetails["vluchtnummer"];
-    var_dump($flightnumber);
+
     $flightDetails = retrieveFlightInformation($flightnumber);
     $pageContent .= generateSingleFlightInfomation($flightDetails);
 
 }
 
-if (!empty($_SESSION["passengerDetails"])){
-        if(is_null($_SESSION["passengerDetails"]["inchecktijdstip"])) {
-            $pageContent .= createCheckinButton($_SESSION["passengerDetails"]["passagiernummer"]);
+if (!empty($passengerDetails)){
+        if(is_null($passengerDetails["inchecktijdstip"])) {
+            $pageContent .= createCheckinButton($passengerDetails["passagiernummer"]);
       }
 }
 

@@ -1,7 +1,9 @@
 <?php
 
-
 require_once './util-pages/session.php';
+require_once './util-pages/array-from-url.php';
+require_once './util-pages/search-passenger-number.php';
+require_once './util-pages/search-flight-number.php';
 require_once './forms/search-passenger-form.php';
 require_once './forms/extra-luggage-form.php';
 require_once './content-blocks/flight-luggage-Info.php';
@@ -21,33 +23,33 @@ $pageContent = '';
 
 
 if(($_SESSION["role"] === 'passenger')){
-    $_SESSION["passengerDetails"] = getPassengerDetails($_SESSION['passengerNumber']);
-    $_SESSION["flightDetails"] = getFlightInformation($_SESSION["passengerDetails"]['vluchtnummer']);
+    $passengerDetails = getPassengerDetails($_SESSION['passengerNumber']);
+    $flightDetails = getFlightInformation($passengerDetails['vluchtnummer']);
 } else {
-    $pageContent .= searchPassengerByNumberForm($_SERVER["REQUEST_URI"]);
-    $passengerDetails = isset($_SESSION["passengerDetails"]) ? getPassengerDetails($_SESSION["passengerDetails"]["passagiernummer"]) : [];
-    $flightDetails = isset($_SESSION["flightDetails"]) ? getFlightInformation($passengerDetails['vluchtnummer']) : [];
+    if(isset($_SERVER["QUERY_STRING"])) {
+        $searchedNumber = getArrayFromURL($_SERVER["QUERY_STRING"]);
+
+    }
+
+    $pageContent .= searchPassengerByNumberForm();
+    $passengerDetails = !empty($searchedNumber["passengernumber"]) ? retrievePassengerInformation($searchedNumber["passengernumber"]) : [];
+    $flightDetails = !empty($passengerDetails["vluchtnummer"]) ? getFlightInformation($passengerDetails['vluchtnummer']) : [];
     $pageContent .= "</div>";
 }
 
-
-if(!empty($_SESSION["passengerDetails"])) {
-    $luggageDetails = getLuggageFlightInfo($_SESSION["passengerDetails"]['vluchtnummer']);
-    $_SESSION["maxLuggageLeftPassenger"] = ($luggageDetails['max_gewicht_pp'] - $_SESSION['passengerDetails']['gewicht_bagage']);
-
+if(!empty($passengerDetails)) {
+    $luggageDetails = getLuggageFlightInfo($passengerDetails["vluchtnummer"]);
+    $maxLuggageLeftPassenger = ($luggageDetails['max_gewicht_pp'] - $passengerDetails['gewicht_bagage']);
 
     $pageContent .= '<div class= "information-field">';
     $pageContent .= '<h2>Passagiersgegevens</h2>';
-    $pageContent .= generatePassengerInformation($_SESSION["passengerDetails"]);
- //   $pageContent .= '<section class= "information-field">';
+    $pageContent .= generatePassengerInformation($passengerDetails);
     $pageContent .= '<h2>Vluchtgegevens</h2>';
-    $pageContent .= generateSingleFlightInfomation($_SESSION["flightDetails"]);
+    $pageContent .= generateSingleFlightInfomation($flightDetails);
     $pageContent .= flightLugggageInfo($luggageDetails);
 
-
-
-    if ($_SESSION["passengerDetails"]["aantal"] < $luggageDetails["max_objecten_pp"] && $_SESSION["passengerDetails"]["gewicht_bagage"] < $luggageDetails["max_gewicht_pp"]) {
-        $pageContent .= extraLuggageForm();
+    if ($passengerDetails["aantal"] < $luggageDetails["max_objecten_pp"] && $passengerDetails["gewicht_bagage"] < $luggageDetails["max_gewicht_pp"]) {
+        $pageContent .= extraLuggageForm($passengerDetails['passagiernummer'], $maxLuggageLeftPassenger);
 
     } else {
         $pageContent .= '<h3> Er is geen mogelijkheid om het gewicht of het aantal bagagestukken te wijzigen. </h3 >';
@@ -58,8 +60,7 @@ if(!empty($_SESSION["passengerDetails"])) {
 
 $pageContent .= printMessages();
 
-unset($_SESSION["passengerDetails"]);
-unset($_SESSION["flightDetails"]);
+
 
 include './basic-elements/base-page.php';
 

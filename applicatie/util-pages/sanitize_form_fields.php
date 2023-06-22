@@ -15,7 +15,7 @@ function sanatizeField($fieldInput) {
 }
 
 function convertDatetimeToQuery($originalTime) {
-    var_dump($originalTime);
+
     $convertedTime= DateTime::createFromFormat("Y-m-d\TH:i", $originalTime);
     return $convertedTime->format("Y-m-d H:i");
 }

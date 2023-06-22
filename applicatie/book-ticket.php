@@ -14,7 +14,6 @@ if(!isset ($_SESSION["role"])) {
 
 if(isset($_SERVER["QUERY_STRING"])) {
     $searchedNumber = getArrayFromURL($_SERVER["QUERY_STRING"]);
-
 }
 
     $homePage = false;
@@ -27,11 +26,7 @@ if(!empty($searchedNumber["flightnumber"])){
 
     if(!empty($remainingSpace)) {
         $pageContent .= generateRemainingSpaceInfo($remainingSpace);
-        $_SESSION["remaining_places"] = $remainingSpace["remaining_passengers"];
-    } else {
-        $_SESSION['messages']["book-ticket"] = "Het ophalen van gegevens is fout gegaan";
     }
-
 }
     $pageContent .= '</div>';
     $pageContent .= generateTicketForm();
