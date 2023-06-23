@@ -180,8 +180,8 @@ th a {
 
 .page-links a:hover{
     color: var(--accentpurple);
+    border: #9f74fb 1px solid;
 }
-
 
 @media screen and (max-width: 992px) {
     .page-content {

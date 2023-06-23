@@ -109,12 +109,12 @@ function getRemainingSpaceFlight($flightNumber){
     global $verbinding;
     $sql = "SELECT Vlucht.vluchtnummer, luchthaven.naam as bestemming,  max_aantal as max_passagiers,  
             bookedpassengers.aantal as booked_passengers, max_aantal - bookedpassengers.aantal as remaining_passengers, 
-            max_totaalgewicht, SUM(BagageObject.gewicht) as gewicht_bagage, max_totaalgewicht - SUM(BagageObject.gewicht) as remaining_weight
+            max_totaalgewicht - SUM(ISNULL(BagageObject.gewicht,0)) as remaining_weight
             FROM [GelreAirport].[dbo].[Vlucht] as Vlucht
-            JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON vlucht.bestemming=luchthavencode
-            JOIN [GelreAirport].[dbo].[Passagier] ON Vlucht.vluchtnummer = Passagier.vluchtnummer
-            JOIN [GelreAirport].[dbo].[BagageObject] ON Passagier.passagiernummer = BagageObject.passagiernummer
-            JOIN (	SELECT vluchtnummer, count(passagiernummer) as aantal
+            LEFT JOIN [GelreAirport].[dbo].[Luchthaven] AS luchthaven ON vlucht.bestemming=luchthavencode
+            LEFT JOIN [GelreAirport].[dbo].[Passagier] ON Vlucht.vluchtnummer = Passagier.vluchtnummer
+            LEFT JOIN [GelreAirport].[dbo].[BagageObject] ON Passagier.passagiernummer = BagageObject.passagiernummer
+            LEFT JOIN (	SELECT vluchtnummer, count(passagiernummer) as aantal
                     FROM [GelreAirport].[dbo].[Passagier]
                     group by vluchtnummer) AS bookedpassengers
                     ON Vlucht.vluchtnummer = bookedpassengers.vluchtnummer
@@ -123,7 +123,8 @@ function getRemainingSpaceFlight($flightNumber){
 
     $query = $verbinding ->prepare($sql);
     $query -> execute([':flightNumber' => $flightNumber]);
-    return  $query -> fetch(PDO::FETCH_ASSOC);
+    return $query -> fetch(PDO::FETCH_ASSOC);
+
 }
 
 //----------------------------------------------------------------------------------------------------

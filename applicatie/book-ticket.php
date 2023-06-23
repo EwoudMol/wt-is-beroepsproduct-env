@@ -14,6 +14,7 @@ if(!isset ($_SESSION["role"])) {
 
 if(isset($_SERVER["QUERY_STRING"])) {
     $searchedNumber = getArrayFromURL($_SERVER["QUERY_STRING"]);
+
 }
 
     $homePage = false;
@@ -22,7 +23,9 @@ if(isset($_SERVER["QUERY_STRING"])) {
     $pageContent = searchFlightByNumberForm();
 
 if(!empty($searchedNumber["flightnumber"])){
+
     $remainingSpace = retrieveRemainingSpaceFlight($searchedNumber["flightnumber"]);
+
 
     if(!empty($remainingSpace)) {
         $pageContent .= generateRemainingSpaceInfo($remainingSpace);
