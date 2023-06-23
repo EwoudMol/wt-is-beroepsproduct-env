@@ -27,8 +27,11 @@ if(!isset($_SESSION["role"])) {
 
 if (!empty($searchedNumber["passengernumber"])) {
     $passengerDetails = retrievePassengerInformation($searchedNumber["passengernumber"]);
-    $pageContent .= generatePassengerInformation($passengerDetails);
+
+    if(!empty($passengerDetails)) {
+        $pageContent .= generatePassengerInformation($passengerDetails);
     }
+}
 
     $pageContent .= '</div>';
     $pageContent .= searchFlightByNumberForm();
@@ -46,9 +49,9 @@ if (!empty($passengerDetails)){
             $pageContent .= createCheckinButton($passengerDetails["passagiernummer"]);
       }
 }
-
-    $pageContent .= printMessages();
     $pageContent .= '</div>';
+    $pageContent .= printMessages();
+
 
 
 include './basic-elements/base-page.php';

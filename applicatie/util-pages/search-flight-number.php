@@ -11,7 +11,6 @@ function retrieveFlightInformation($flightNumber) {
     } catch (Exception $error) {
         $_SESSION['messages']["searchFlightNumber"] = "Het ophalen van vluchtgegevens is fout gegaan";
     }
-
 }
 
 

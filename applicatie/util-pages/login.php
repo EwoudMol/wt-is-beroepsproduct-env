@@ -47,6 +47,7 @@ if ($sanitizedInput["user"] === "passenger") {
             $_SESSION["messages"]["checkin"] = "Er is iets fout gegaan met de database, probeer het nog eens";
         }
 }
+$_SESSION["messages"]["checkin"] = "Er is iets fout gegaan met de database, probeer het nog eens";
 header('Location: ../index.php');
 exit;
 

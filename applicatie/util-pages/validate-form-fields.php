@@ -21,6 +21,7 @@ function validateNumericField($filledFormData, $numericFields)
             $_SESSION["messages"][$requiredField] = $requiredField . " is niet met een numerieke waarde gevuld.";
             return false;
         }
-        return true;
+
     }
+    return true;
 }
