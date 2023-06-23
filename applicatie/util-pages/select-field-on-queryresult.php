@@ -2,8 +2,8 @@
 
 function generateSelectField($options, $name,$fieldname, $required) {
     $selectField = '<label for="' . $name . '"> ' . ucfirst($fieldname) . '</label>';
-    $selectField .= '<select name="' . $name . '">';
-    $selectField .= '<option selected value = "">Maak een keuze</option>';
+    $selectField .= '<select id = "' . $name . '" name="' . $name . '" required>';
+    $selectField .= '<option selected value = "" disabled>Maak een keuze</option>';
 
     foreach ($options as $option) {
         $id = $option[$fieldname];
@@ -11,9 +11,7 @@ function generateSelectField($options, $name,$fieldname, $required) {
         $selectField .= '<option value="' . $id . '">' . $naam . '</option>';
     }
 
-    if ($required){
-        $selectField .= 'required';
-    }
+
 
     $selectField .= '</select>';
 

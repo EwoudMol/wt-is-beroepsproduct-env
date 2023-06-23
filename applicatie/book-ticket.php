@@ -31,7 +31,7 @@ if(!empty($searchedNumber["flightnumber"])){
     $pageContent .= '</div>';
     $pageContent .= generateTicketForm();
     $pageContent .= printMessages();
-    $pageContent .= '</div>';
+//    $pageContent .= '</div>';
 
 include "./basic-elements/base-page.php";
 

@@ -23,7 +23,7 @@ function generateDepartureTable($flightTimes) {
     $sortOrder = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
     $sortNew = $sortOrder === 'asc' ? 'desc' : 'asc';
 
-    $flightTable = '<section id="page-content-flight">
+    $flightTable = '<div id="page-content-flight">
         <table>
             <thead>
             <tr>
@@ -51,7 +51,7 @@ function generateDepartureTable($flightTimes) {
     $flightTable .= "
             </tbody>
         </table>
-    </section>";
+    </div>";
 
 return $flightTable;
 }
