@@ -24,7 +24,6 @@ if ($postedToken === $_SESSION['token']){
             }
         } catch (Exception $error) {
             $_SESSION["messages"]["newLuggage"] = "Er is iets fout gegaan bij het inboeken van de extra bagage.";
-            var_dump($error);
         }
     }
 

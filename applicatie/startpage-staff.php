@@ -40,7 +40,10 @@ if (!empty($searchedNumber["flightnumber"]) || !empty($passengerDetails["vluchtn
     $flightnumber = (!empty($searchedNumber["flightnumber"])) ? $searchedNumber["flightnumber"] : $passengerDetails["vluchtnummer"];
 
     $flightDetails = retrieveFlightInformation($flightnumber);
-    $pageContent .= generateSingleFlightInfomation($flightDetails);
+
+    if(!empty($flightDetails)) {
+        $pageContent .= generateSingleFlightInfomation($flightDetails);
+    }
 
 }
 
