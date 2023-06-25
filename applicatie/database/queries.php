@@ -66,7 +66,7 @@ function getAmountTableRows($table, $displayFlightsFrom){
     global $verbinding;
     $displayFlightsFrom = date("Y-m-d H:i", $displayFlightsFrom);
 
-    $sql = "SELECT COUNT(1) FROM vlucht  WHERE vlucht.vertrektijd > :displayFlightsFrom";
+    $sql = "SELECT COUNT(1) FROM {$table}  WHERE vlucht.vertrektijd > :displayFlightsFrom";
     $query = $verbinding ->prepare($sql);
 
     $query->bindParam(':displayFlightsFrom', $displayFlightsFrom, PDO::PARAM_STR);

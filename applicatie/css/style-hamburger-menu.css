@@ -90,6 +90,15 @@
 
 
 
+@media screen and (max-width: 768px) {
+    :root {
+        --bar-width: 40px;
+        --bar-height: 6px;
+        --hamburger-gap: 5px;
+    }
+}
+
+
 
 
 
